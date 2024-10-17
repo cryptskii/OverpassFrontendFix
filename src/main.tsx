@@ -8,7 +8,7 @@ import './styles/PipBoyWalletDashboard.css'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <TonConnectUIProvider manifestUrl="https://overpass-channels-czhd-git-crypskii-brandons-projects-d6012021.vercel.app/tonconnect-manifest.json">
+    <TonConnectUIProvider manifestUrl="/tonconnect-manifest.json">
       <BrowserRouter>
         <App />
       </BrowserRouter>
