@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import TonWeb from 'tonweb';
-import TonAccess from '@orbs-network/ton-access';
+import * as TonAccess from '@orbs-network/ton-access';
 
 interface TonAccessContextType {
   tonweb: TonWeb | null;
@@ -16,7 +16,7 @@ export const TonAccessProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   useEffect(() => {
     const initializeTonAccess = async () => {
       try {
-        const endpoint = await TonAccess.getHttpEndpoint({ network: 'testnet' });
+        const endpoint = await TonAccess.getHttpEndpoint();
         const newTonweb = new TonWeb(new TonWeb.HttpProvider(endpoint));
         setTonweb(newTonweb);
         console.log('TonAccess initialized successfully');

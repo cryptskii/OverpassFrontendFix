@@ -22,7 +22,7 @@ agentRequireRestartOnSave = false
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "npm run dev"
-waitForPort = 5000
+waitForPort = 5173
 
 [deployment]
 run = ["sh", "-c", "npm run dev"]
@@ -32,4 +32,9 @@ channel = "stable-24_05"
 
 [[ports]]
 localPort = 5000
+externalPort = 5000
+exposeLocalhost = true
+
+[[ports]]
+localPort = 5173
 externalPort = 80
