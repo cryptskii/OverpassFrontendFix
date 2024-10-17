@@ -3,12 +3,15 @@ import { useTonWallet } from '../hooks/useTonWallet'
 import { getHttpEndpoint } from "@orbs-network/ton-access";
 import { TonClient, WalletContractV4, fromNano, Address, MessageRelaxed } from "@ton/ton";
 import { mnemonicToWalletKey } from "@ton/crypto";
-import { beginCell, toNano } from "@ton/core";
+import { address, beginCell, toNano } from "@ton/core";
+import { WalletInfo } from '../components/WalletInfo';
+import SendTransaction from '../components/SendTransaction';
+import { Header } from '../components/Header';
 
-const Dashboard: React.FC = () => {
-  const { address } = useTonWallet();
-  const [balance, setBalance] = useState<string>('0');
+export const Dashboard: React.FC = () => {
   const [client, setClient] = useState<TonClient | null>(null);
+  const [balance, setBalance] = useState<string>('0');
+  const { address: walletAddress } = useTonWallet();
 
   useEffect(() => {
     const initTonAccess = async () => {
@@ -22,9 +25,9 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     const fetchTokenBalance = async () => {
-      if (address && client) {
+      if (walletAddress && client) {
         try {
-          const balance = await client.getBalance(Address.parse(address));
+          const balance = await client.getBalance(address(walletAddress));
           setBalance(fromNano(balance));
         } catch (error) {
           console.error("Error fetching balance:", error);
@@ -32,7 +35,7 @@ const Dashboard: React.FC = () => {
       }
     };
     fetchTokenBalance();
-  }, [address, client]);
+  }, [walletAddress, client]);
 
   const sendTransaction = async () => {
     if (!client) return;
@@ -55,7 +58,7 @@ const Dashboard: React.FC = () => {
             bounce: false,
             bounced: false,
             src: null,
-            dest: Address.parse('EQCD39VS5jcptHL8vMjEXrzGaRcCVYto7HUn4bpAOg8xqB2N'),
+            dest: address('EQCD39VS5jcptHL8vMjEXrzGaRcCVYto7HUn4bpAOg8xqB2N'),
             value: toNano('1'),
             ihrFee: BigInt(0),
             fwdFee: BigInt(0),
@@ -70,10 +73,17 @@ const Dashboard: React.FC = () => {
     } catch (error) {
       console.error("Error sending transaction:", error);
     }
-  };  return (    <div>
-      <h1>Dashboard</h1>
-      <Balance balance={balance} />
-      <SendTransaction onSend={sendTransaction} />
+  };
+
+  return (
+    <div>
+      <Header />
+      <div className="container">
+        <h1>Dashboard</h1>
+        <WalletInfo />
+        <Balance balance={balance} />
+        <SendTransaction onSend={sendTransaction} />
+      </div>
     </div>
   );
 };
@@ -95,13 +105,4 @@ const Balance: React.FC<BalanceProps> = ({ balance }) => {
 
 type SendTransactionProps = {
   onSend: () => Promise<void>;
-};
-
-const SendTransaction: React.FC<SendTransactionProps> = ({ onSend }) => {
-  return (
-    <div>
-      <h2>Send Transaction</h2>
-      <button onClick={onSend}>Send</button>
-    </div>
-  );
 };

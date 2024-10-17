@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import WalletConnect from './WalletConnect'
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   return (
     <header className="pip-boy-header">
       <h1>Overpass</h1>

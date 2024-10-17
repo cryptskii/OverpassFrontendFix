@@ -3,7 +3,11 @@ import { useTonConnectUI } from '@tonconnect/ui-react'
 import { useTonAccess } from './TonAccessProvider'
 import TonWeb from 'tonweb'
 
-const SendTransaction: React.FC = () => {
+interface SendTransactionProps {
+  onSend?: () => void
+}
+
+const SendTransaction: React.FC<SendTransactionProps> = ({ onSend }) => {
   const [tonConnectUI] = useTonConnectUI()
   const { tonweb } = useTonAccess()
   const [recipient, setRecipient] = useState('')
@@ -13,7 +17,7 @@ const SendTransaction: React.FC = () => {
   const [isConfirming, setIsConfirming] = useState(false)
   const [transactionStatus, setTransactionStatus] = useState<string | null>(null)
 
-  const validateInputs = () => {
+  const validateInputs = (): boolean => {
     if (!recipient) {
       setError('Please enter a recipient address')
       return false
@@ -51,7 +55,7 @@ const SendTransaction: React.FC = () => {
         messages: [
           {
             address: recipient,
-            amount: amountNano,
+            amount: amountNano.toString(),
           },
         ],
       }
@@ -64,6 +68,9 @@ const SendTransaction: React.FC = () => {
       setIsConfirming(false)
       setRecipient('')
       setAmount('')
+      if (onSend) {
+        onSend()
+      }
     } catch (err) {
       const errorMessage = err instanceof Error ? `Failed to send transaction: ${err.message}` : `Failed to send transaction: ${String(err)}`
       setError(errorMessage)
