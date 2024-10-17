@@ -1,10 +1,15 @@
+import React, { useState } from 'react'
+import { useTonConnectUI } from '@tonconnect/ui-react'
+import { useTonAccess } from './TonAccessProvider'
+import TonWeb from 'tonweb'
 
-
-} catch (err) {
-        const errorMessage = err instanceof Error ? `Failed to send transaction: ${err.message}` : `Failed to send transaction: ${String(err)}`;
-        setError(errorMessage);
-        setSuccess(null);
-      }
+const SendTransaction: React.FC = () => {
+  const [tonConnectUI] = useTonConnectUI()
+  const { tonweb } = useTonAccess()
+  const [recipient, setRecipient] = useState('')
+  const [amount, setAmount] = useState('')
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState<string | null>(null)
 
   const handleSend = async () => {
     if (!tonConnectUI.connected || !tonweb) {
@@ -24,18 +29,15 @@
         ],
       }
 
-      try {
-         const result = await tonConnectUI.sendTransaction(transaction);
-         setSuccess(`Transaction sent successfully. Hash: ${result.boc}`);
-         setError(null);
-      } catch (err) {
-         if (err instanceof Error) {
-            setError(`Failed to send transaction: ${err.message}`);
-         } else {
-            setError(`Failed to send transaction: ${String(err)}`);
-         }
-         setSuccess(null);
-      }
+      const result = await tonConnectUI.sendTransaction(transaction)
+      setSuccess(`Transaction sent successfully. Hash: ${result.boc}`)
+      setError(null)
+    } catch (err) {
+      const errorMessage = err instanceof Error ? `Failed to send transaction: ${err.message}` : `Failed to send transaction: ${String(err)}`
+      setError(errorMessage)
+      setSuccess(null)
+    }
+  }
 
   return (
     <div className="bg-gray-700 p-4 rounded-lg shadow-md">
