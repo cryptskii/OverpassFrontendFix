@@ -12,6 +12,10 @@ author = "agent"
 task = "workflow.run"
 args = "Vite Development Server"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Increase File Watcher Limit"
+
 [[workflows.workflow]]
 name = "Vite Development Server"
 author = "agent"
@@ -23,6 +27,17 @@ agentRequireRestartOnSave = false
 task = "shell.exec"
 args = "npm run dev"
 waitForPort = 5173
+
+[[workflows.workflow]]
+name = "Increase File Watcher Limit"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p"
 
 [deployment]
 run = ["sh", "-c", "npm run dev"]
@@ -37,4 +52,4 @@ exposeLocalhost = true
 
 [[ports]]
 localPort = 5173
-externalPort = 80
+externalPort = 5173
