@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Balance from '../components/Balance'
 import TransactionList from '../components/TransactionList'
+import SendTransaction from '../components/SendTransaction'
 import { useTonWallet } from '../hooks/useTonWallet'
 import { fetchTransactions } from '../utils/api'
 
@@ -41,6 +42,7 @@ const Dashboard: React.FC = () => {
       <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <Balance />
+        <SendTransaction />
         {loading ? (
           <p>Loading transactions...</p>
         ) : error ? (
