@@ -11,14 +11,20 @@
   },
   "dependencies": {
     "@orbs-network/ton-access": "^2.3.3",
+    "@ton/core": "^0.59.0",
+    "@ton/crypto": "3.3.0",
+    "@ton/ton": "15.1.0",
     "@tonconnect/ui-react": "^2.0.9",
-    "autoprefixer": "^10.4.20",
+    "@tonconnect/ui": "^2.0.9",
+    "@tonconnect/protocol": "^2.0.9",
+    "@tonconnect/sdk": "^2.0.9",
     "axios": "^1.7.7",
     "buffer": "^6.0.3",
     "postcss": "^8.4.47",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.27.0",
+    "recharts": "^2.13.0",
     "tailwindcss": "^3.4.14",
     "tonweb": "^0.0.66",
     "vite-plugin-node-polyfills": "^0.22.0"
@@ -29,11 +35,11 @@
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.2",
     "eslint": "^9.11.1",
-    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-hooks": "5.0.0",
     "eslint-plugin-react-refresh": "^0.4.12",
     "globals": "^15.9.0",
     "typescript": "^5.5.3",
-    "typescript-eslint": "^8.7.0",
+    "typescript-eslint": "8.10.0",
     "vite": "^5.4.9"
   }
 }

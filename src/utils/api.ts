@@ -1,13 +1,31 @@
-import axios from 'axios'
-
-const API_BASE_URL = 'https://api.overpass.example.com' // Replace with actual API URL
+import axios from 'axios';
+import { useTonConnectUI } from '@tonconnect/ui-react';
 
 export const fetchTransactions = async (address: string) => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/transactions/${address}`)
-    return response.data
-  } catch (error) {
-    console.error('Error fetching transactions:', error)
-    throw error
-  }
-}
+  const response = await axios.get(
+    `https://tonapi.io/v2/accounts/${address}/transactions`,
+  );
+  return response.data;
+};
+
+// Composant avec TON Connect
+const TransactionComponentWithTONConnect = () => {
+  const [tonConnectUI] = useTonConnectUI();
+  const connected = tonConnectUI.connected;
+  const account = tonConnectUI.account;
+
+  const handleFetchTransactions = async () => {
+    if (connected && account) {
+      try {
+        const transactions = await fetchTransactions(account.address);
+        console.log('Transactions:', transactions);
+        // Traitez les transactions ici
+      } catch (error) {
+        console.error('Error fetching transactions:', error);
+      }
+    } else {
+      console.log('Please connect your wallet first');
+    }
+  };
+  
+};

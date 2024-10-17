@@ -1,0 +1,1 @@
+{"private":true,"dependencies":{"types-registry":"^0.1.690"},"devDependencies":{"@types/bn.js":"^5.1.6","@types/eslint__js":"^8.42.3","@types/isomorphic-fetch":"^0.0.39","@types/ledgerhq__hw-transport":"^4.21.8","@types/ledgerhq__hw-transport-webusb":"^4.70.4","@types/react":"^18.3.11","@types/react-dom":"^18.3.1"}}
