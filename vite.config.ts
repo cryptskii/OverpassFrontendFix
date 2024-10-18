@@ -1,83 +1,31 @@
-import { defineConfig } from 'vite'
+import { PluginOption, defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
-import path from 'path'
+import { resolve } from 'node:path'
 
+import { analyzer } from 'vite-bundle-analyzer'
+
+const addAnalyzer: PluginOption[] = process.env.ANALYZE === '1' ? [analyzer()] : []
+
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    nodePolyfills({
-      include: ['buffer', 'process', 'util']
-    })
-  ],
-  define: {
-    'process.env': {},
-  },
-  optimizeDeps: {
-    esbuildOptions: {
-      define: {
-        global: 'globalThis'
-      },
-    },
-  },
+  plugins: [react(), ...addAnalyzer],
   server: {
-    watch: {
-      ignored: [
-        '**/.git/**',
-        '**/node_modules/**',
-        '**/dist/**',
-        '**/build/**',
-        '**/.cache/**',
-        '**/*.log',
-        '**/*.lock',
-        '**/package-lock.json',
-        '**/public/**',
-        '**/index.html',
-        '**/manifest.json',
-        '**/favicon.ico',
-        '**/*.md',
-        '**/*.json',
-        '**/*.css',
-        '**/ClientDirectory.txt',
-        '**/Pasted*.txt',
-        '**/www/**',
-        '**/eslint.config.js',
-        '**/tsconfig*.json',
-        '**/vite.config.ts',
-        '**/.config/**',
-        '**/.local/**',
-        '**/.upm/**',
-        '**/.replit',
-        '**/replit.nix',
-        '**/package.json',
-        '**/.vscode/**',
-        '**/coverage/**',
-        '**/tmp/**',
-        '**/logs/**'
-      ],
-    },
-    fs: {
-      strict: false,
+    port: 3000,
+  },
+  base: '',
+  optimizeDeps: {
+    include: ['bn.js'],
+    esbuildOptions: {
+      target: 'es2020',
     },
   },
   build: {
-    target: 'esnext',
-    minify: 'esbuild',
-    outDir: 'dist',
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          'ton-connect': ['@tonconnect/ui-react'],
-        },
-      },
-    },
-    emptyOutDir: true,
-    chunkSizeWarningLimit: 1000,
+    target: 'es2020',
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': resolve(__dirname, './src'),
+      '~': resolve(__dirname, './src'),
     },
   },
 })
