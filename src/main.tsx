@@ -4,14 +4,14 @@ import { BrowserRouter } from 'react-router-dom'
 import { TonConnectUIProvider } from '@tonconnect/ui-react'
 import './styles/globals.css'
 import './styles/PipBoyWalletDashboard.css' 
-import { OpApp } from './App'  // Import OpApp instead of App
+import App from './App' 
 
-const root = ReactDOM.createRoot(document.getElementById('app') as HTMLElement)
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <TonConnectUIProvider>
-        <OpApp />
+        <App />
       </TonConnectUIProvider>
     </BrowserRouter>
   </React.StrictMode>

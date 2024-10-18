@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useTonWallet } from '../hooks/useTonWallet'
-import { fetchTransactions } from '../utils/api'
-
+import { fetchTransactions } from "../utils/api";
 interface Transaction {
   id: string
   amount: string

@@ -10,7 +10,7 @@ const tonClient = new TonClient({
 
 // Generate new key
 let mnemonics: string[];
-let keyPair: { publicKey: Buffer; secretKey: Buffer };
+let keyPair: { publicKey: Buffer; secretKey: Buffer } | undefined;
 
 (async () => {
   mnemonics = await mnemonicNew();
@@ -19,12 +19,14 @@ let keyPair: { publicKey: Buffer; secretKey: Buffer };
 
 // Create wallet contract
 let workchain = 0; // Usually you need a workchain 0
-let wallet: WalletContractV4;
-let contract: ReturnType<TonClient['open']>;
+let wallet: WalletContractV4 | undefined;
+let contract: ReturnType<TonClient['open']> | undefined;
 
 (async () => {
-  wallet = WalletContractV4.create({ workchain, publicKey: keyPair.publicKey });
-  contract = tonClient.open(wallet);
+  if (keyPair) {
+    wallet = WalletContractV4.create({ workchain, publicKey: keyPair.publicKey });
+    contract = tonClient.open(wallet);
+  }
 })();
 
 export const useTonWallet = () => {

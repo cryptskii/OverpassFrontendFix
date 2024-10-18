@@ -15,13 +15,29 @@ const LoadingComponent: React.FC<{ isInitialized: boolean, isLoading: boolean }>
   return null;
 };
 
-export const App: React.FC = () => {
+interface Transaction {
+  id: string;
+  amount: number;
+  date: string;
+  sender: string;
+  recipient: string;
+  status: 'pending' | 'completed' | 'failed';
+  type: 'incoming' | 'outgoing';
+  description?: string;
+}
+interface DashboardProps {
+  transactions: Transaction[];
+  fetchTransactions: () => Promise<void>;
+}
+
+const App: React.FC = () => {
   const [tonConnectUI] = useTonConnectUI();
   const navigate = useNavigate();
   const [isInitialized, setIsInitialized] = useState(false);
   const [connected, setConnected] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [theme] = useState<'light' | 'dark'>('light');
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
     const initializeApp = async () => {
@@ -67,6 +83,17 @@ export const App: React.FC = () => {
     }
   };
 
+  const fetchTransactions = async () => {
+    try {
+      // Fetch transactions from the backend API
+      const response = await fetch('/api/transactions');
+      const data: Transaction[] = await response.json();
+      setTransactions(data);
+    } catch (error) {
+      console.error('Failed to fetch transactions:', error);
+    }
+  };
+
   return (
     <div className={`App ${theme}`}>
       <TonConnectUIProvider manifestUrl="https://overpass-frontend-den9pqd7n-brandons-projects-d6012021.vercel.app/tonconnect-manifest.json">
@@ -108,8 +135,7 @@ export const App: React.FC = () => {
     </div>
   );
 };
-
-export const OpApp: React.FC = () => {
+const OpApp: React.FC = () => {
   useEffect(() => {
     if (window.location.href === 'https://github.com/cryptskii/OverpassFrontendFix/') {
       window.location.href = 'https://overpass-channels-czhd-git-crypskii-brandons-projects-d6012021.vercel.app/';
@@ -119,4 +145,4 @@ export const OpApp: React.FC = () => {
   return <App />;
 };
 
-export default OpApp;
+export default App;

@@ -1,12 +1,11 @@
 {
-  "name": "vite-project",
+  "name": "overpass-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
-    "dev": "vite --host --force",
-    "build": "vite build",
-    "lint": "eslint .",
+    "dev": "vite",
+    "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
