@@ -1,73 +1,263 @@
-/* ./src/styles/PipBoyWalletDashboard.css */
-
+/* PipBoy Wallet Styles */
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 :root {
-  --pip-boy-green: #3bff82;
-  --pip-boy-dark-green: #1a4c33;
+  --pip-boy-green: #2ec27e;
+  --pip-boy-dark-green: #1e8449;
   --pip-boy-bg: #001a0e;
+  --pip-boy-border: #2ec27e;
+  --pip-boy-text: #2ec27e;
 }
 
 body {
   background-color: #000;
-  color: var(--pip-boy-green);
-  font-family: 'VT323', monospace;
+  color: var(--pip-boy-text);
+  font-family: "VT323", monospace;
+  margin: 0;
+  padding: 0;
 }
 
-.dashboard-hud {
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 30px;
+
+
+
+.pip-boy-container {
+  max-width: 1024px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.pip-boy-screen {
+  flex-grow: 1;
   background-color: var(--pip-boy-bg);
-  border: 4px solid var(--pip-boy-green);
+  border: 4px solid var(--pip-boy-border);
   border-radius: 15px;
   box-shadow: 0 0 20px var(--pip-boy-green);
+  padding: 20px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-.dashboard-container {
+.pip-boy-header {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px var(--pip-boy-green);
+}
+
+
+.load-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+}
+
+.load-screen-content {
+  background-color: rgba(46, 194, 126, 0.1);
+  border: 1px solid var(--pip-boy-border);
+  border-radius: 5px;
+  padding: 30px;
+  max-width: 400px;
+}
+
+.pip-boy-logo {
+  width: 150px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.loading-gif {
+  width: 40px;  /* Adjust based on your GIF's dimensions */
+  height: auto;
+  margin-bottom: 55px;
+}
+
+.loading-text {
+  font-size: 1.2em;
+}
+
+.connect-wallet-container {
+  margin-top: 20px;
+}
+
+.pip-boy-button {
+  background-color: var(--pip-boy-dark-green);
+  color: var(--pip-boy-text);
+  border: 1px solid var(--pip-boy-border);
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 14px;
+}
+
+.pip-boy-button:hover {
+  background-color: var(--pip-boy-green);
+  color: var(--pip-boy-bg);
+}
+
+.pip-boy-input {
+  background-color: var(--pip-boy-bg);
+  color: var(--pip-boy-text);
+  border: 1px solid var(--pip-boy-border);
+  padding: 8px;
+  border-radius: 5px;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 14px;
+}
+
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.2)
+  );
+  background-size: 100% 4px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.glow-text {
+  text-shadow: 0 0 2px var(--pip-boy-green);
+}
+
+
+
+
+
+
+
+
+.scanlines::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 0, 0, 0.1) 51%
+  );
+  background-size: 100% 3px;
+  animation: scanlines 9s steps(60) infinite;
+  pointer-events: none;
+}
+
+@keyframes scanlines {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+
+.pip-boy-header {
+  font-size: 2.5em;
+  margin: 0;
+  text-shadow: 0 0 5px var(--pip-boy-green);
+}
+
+.pip-boy-nav {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.pip-boy-nav button {
+  background-color: var(--pip-boy-dark-green);
+  color: var(--pip-boy-green);
+  border: 2px solid var(--pip-boy-green);
+  padding: 10px 20px;
+  font-family: 'VT323', monospace;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pip-boy-nav button:hover,
+.pip-boy-nav button.active {
+  background-color: var(--pip-boy-green);
+  color: var(--pip-boy-bg);
+}
+
+.pip-boy-content {
   padding: 20px;
+  border: 2px solid var(--pip-boy-green);
+  min-height: 300px;
+}
+
+.balances-tab ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.balances-tab li {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.balance {
+  float: right;
+}
+
+
+.pip-boy-button:hover {
+  background-color: var(--pip-boy-green);
+  color: var(--pip-boy-bg);
+}
+
+.assign-buttons,
+.transaction-buttons {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.dashboard-content {
-  width: 100%;
+
+/* Add a glowing effect to simulate CRT phosphor */
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 5px var(--pip-boy-green);
+  }
+  50% {
+    text-shadow: 0 0 10px var(--pip-boy-green), 0 0 15px var(--pip-boy-green);
+  }
+  100% {
+    text-shadow: 0 0 5px var(--pip-body-green);
+  }
 }
 
-.dashboard-title {
-  text-align: center;
-  font-size: 2.5em;
-  margin-bottom: 20px;
-  text-shadow: 0 0 10px var(--pip-boy-green);
+.pip-boy-header {
   animation: glow 2s ease-in-out infinite;
 }
 
-/* HUD Section */
-.hud-section {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-bottom: 40px;
-}
+/* ./src/styles/PipBoyWalletDashboard.css */
 
-.hud-modules {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-/* HUD Modules Styling */
-.hud-module {
-  background-color: var(--pip-boy-bg);
-  border: 2px solid var(--pip-boy-green);
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 0 10px var(--pip-boy-green);
-  animation: glow 2s ease-in-out infinite;
-}
-
-/* Connect Wallet Button */
 .connect-wallet .tc-connect-button {
   background-color: var(--pip-boy-green);
   color: var(--pip-boy-bg);
@@ -82,17 +272,4 @@ body {
 .connect-wallet .tc-connect-button:hover {
   background-color: var(--pip-boy-dark-green);
   color: var(--pip-boy-green);
-}
-
-/* Glow effect for buttons and titles */
-@keyframes glow {
-  0% {
-    text-shadow: 0 0 5px var(--pip-boy-green);
-  }
-  50% {
-    text-shadow: 0 0 20px var(--pip-boy-green), 0 0 30px var(--pip-boy-green);
-  }
-  100% {
-    text-shadow: 0 0 5px var(--pip-boy-green);
-  }
 }

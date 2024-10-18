@@ -1,12 +1,10 @@
-// src/main.tsx
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './styles/globals.css';
 import './styles/PipBoyWalletDashboard.css';
-import TonConnectProvider from './components/TonConnectProvider'; // Adjust the path as needed
-import OpApp from './App'; // Ensure OpApp is correctly exported from App.tsx
+import TonConnectProvider from './components/TonConnectProvider';
+import App from './App';
 
 const rootElement = document.getElementById('root') as HTMLElement;
 
@@ -16,7 +14,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <TonConnectProvider>
-        <OpApp />
+        <App />
       </TonConnectProvider>
     </BrowserRouter>
   </React.StrictMode>

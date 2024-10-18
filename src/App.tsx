@@ -1,28 +1,23 @@
-// src/App.tsx
-
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, Outlet, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { useTonConnectUI } from '@tonconnect/ui-react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Dashboard from './pages/Dashboard';
-import LoadingComponent from './components/LoadingComponent';
-import { useTonConnectUI } from '@tonconnect/ui-react';
+import LoadScreen from './components/LoadScreen';
 
 const App: React.FC = () => {
   const navigate = useNavigate();
   const [isInitialized, setIsInitialized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [theme] = useState<'light' | 'dark'>('light');
-
-  // Access TonConnect's UI instance
   const [tonConnectUI] = useTonConnectUI();
 
   useEffect(() => {
     const initializeApp = async () => {
       try {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulating initialization
         setIsInitialized(true);
         setIsLoading(false);
       } catch (error) {
@@ -51,47 +46,30 @@ const App: React.FC = () => {
     }
   };
 
+  if (!isInitialized || isLoading) {
+    return <LoadScreen />;
+  }
+
   return (
-    <div className={`App ${theme}`}>
+    <div className="App">
       <div className="pip-boy-container">
-        <div className="pip-boy-screen scanlines">
+        <div className="scanline"></div>
+        <div className="pip-boy-screen">
           <Header />
           <main className="pip-boy-content">
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={
+                tonConnectUI.connected ? <Navigate to="/dashboard" replace /> : <Home />
+              } />
               <Route path="/about" element={<About />} />
-              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/dashboard" element={
+                tonConnectUI.connected ? <Dashboard /> : <Navigate to="/" replace />
+              } />
             </Routes>
           </main>
           <Footer />
         </div>
       </div>
-      <header className="App-header flex justify-between items-center p-4 bg-gray-800 text-white">
-        <div className="flex items-center">
-          <img
-            src="/assets/2.png"
-            className="App-logo mr-2"
-            alt="logo"
-            style={{ width: '40px', height: 'auto' }}
-          />
-          <h1 className="text-2xl font-bold">PipBoy Wallet</h1>
-        </div>
-        <div className="App-buttons">
-          <button
-            onClick={handleNavigate}
-            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-          >
-            {tonConnectUI.connected ? 'Go to Dashboard' : 'Connect Wallet'}
-          </button>
-        </div>
-        <div className="App-status">
-          <p>Connected: {tonConnectUI.connected ? 'Yes' : 'No'}</p>
-        </div>
-      </header>
-      <div className="App-content">
-        <Outlet />
-      </div>
-      <LoadingComponent isInitialized={isInitialized} isLoading={isLoading} />
     </div>
   );
 };
