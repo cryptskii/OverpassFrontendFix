@@ -1,0 +1,21 @@
+/* SevenSegmentDisplay.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Digital-7&display=swap');
+.display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  color: green;
+  font-family: 'Digital-7', sans-serif;
+}
+.display-h1 {
+  font-size: 4rem;
+  margin-bottom: 2rem;
+}
+.display-p {
+  font-size: 2rem;
+}

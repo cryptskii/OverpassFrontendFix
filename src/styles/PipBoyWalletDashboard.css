@@ -2,11 +2,11 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 :root {
-  --pip-boy-green: #2ec27e;
-  --pip-boy-dark-green: #1e8449;
+  --pip-boy-green: #69c22e;
+  --pip-boy-dark-green: #3e841e;
   --pip-boy-bg: #001a0e;
-  --pip-boy-border: #2ec27e;
-  --pip-boy-text: #2ec27e;
+  --pip-boy-border: #57920d;
+  --pip-boy-text: #69c22e;
 }
 
 body {
@@ -43,8 +43,23 @@ body {
 .pip-boy-header {
   text-align: center;
   font-size: 2em;
-  margin-bottom: 20px;
+  margin-bottom: 10%;
   text-shadow: 0 0 10px var(--pip-boy-green);
+}
+
+.op-logo {
+  width: 40%;
+  height: auto;
+  margin-bottom: 2px;
+}
+
+.logo-word {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 98%;
+  margin-bottom: 20px;
 }
 
 
@@ -53,7 +68,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 80%;
   text-align: center;
 }
 
@@ -66,7 +81,7 @@ body {
 }
 
 .pip-boy-logo {
-  width: 150px;
+  width: 40%;
   height: auto;
   margin-bottom: 20px;
 }
@@ -79,9 +94,9 @@ body {
 }
 
 .loading-gif {
-  width: 40px;  /* Adjust based on your GIF's dimensions */
+  width: 90px;  /* Adjust based on your GIF's dimensions */
   height: auto;
-  margin-bottom: 55px;
+  margin-bottom: 20px;
 }
 
 .loading-text {
@@ -102,6 +117,14 @@ body {
   transition: all 0.3s ease;
   font-family: 'Roboto Mono', monospace;
   font-size: 14px;
+}
+.logo {
+  display: flex;
+  max-width: 90%;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .pip-boy-button:hover {
@@ -132,22 +155,23 @@ body {
     rgba(0, 0, 0, 0.2) 50%,
     rgba(0, 0, 0, 0.2)
   );
-  background-size: 100% 4px;
+  background-size: 100% 9px;
   z-index: 2;
   pointer-events: none;
   opacity: 0.9;
+  animation: scanlines 9s linear infinite;  
 }
-
 .glow-text {
   text-shadow: 0 0 2px var(--pip-boy-green);
 }
-
-
-
-
-
-
-
+@keyframes scanlines {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
 
 .scanlines::before {
   content: "";
@@ -161,11 +185,10 @@ body {
     transparent 50%,
     rgba(0, 0, 0, 0.1) 51%
   );
-  background-size: 100% 3px;
-  animation: scanlines 9s steps(60) infinite;
+  background-size: 100% 4px;
+  animation: scanlines 22s linear infinite;
   pointer-events: none;
 }
-
 @keyframes scanlines {
   0% {
     background-position: 0 0;
@@ -205,6 +228,14 @@ body {
   color: var(--pip-boy-bg);
 }
 
+.about {
+  font-size: 24px;
+}
+
+.home {
+  font-size: 24px;
+}
+
 .pip-boy-content {
   padding: 20px;
   border: 2px solid var(--pip-boy-green);
@@ -218,7 +249,7 @@ body {
 
 .balances-tab li {
   margin-bottom: 10px;
-  font-size: 1.2em;
+  font-size: 2em;
 }
 
 .balance {

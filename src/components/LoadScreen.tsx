@@ -9,8 +9,8 @@ const LoadScreen: React.FC<LoadScreenProps> = ({ showConnectButton = false }) =>
   return (
     <div className="load-screen">
       <div className="load-screen-content">
-        <img src="/assets/pip-boy-logo.png" alt="PipBoy Wallet" className="pip-boy-logo" />
-        <h1 className="glow-text">PipBoy Wallet</h1>
+       <div className="scanline"></div>
+        <h1 className="glow-text">OVERPASS Wallet</h1>
         {showConnectButton ? (
           <div className="connect-wallet-container">
             <p>Connect your wallet to enter the Wasteland</p>
@@ -18,8 +18,8 @@ const LoadScreen: React.FC<LoadScreenProps> = ({ showConnectButton = false }) =>
           </div>
         ) : (
           <div className="loading-container">
-            <img src="/assets/loadingOPlogo.gif" alt="Loading..." className="loading-gif" />
-            <p className="loading-text">Initializing V.A.T.S...</p>
+            <img src="./assets/loadingOPlogo.GIF" alt="Loading..." className="loading-gif" />
+            <p className="loading-text">LOADING...</p>
           </div>
         )}
       </div>

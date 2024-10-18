@@ -17,7 +17,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const initializeApp = async () => {
       try {
-        await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulating initialization
+        await new Promise((resolve) => setTimeout(resolve, 8000)); // Simulating initialization
         setIsInitialized(true);
         setIsLoading(false);
       } catch (error) {

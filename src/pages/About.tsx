@@ -4,10 +4,16 @@ import React from 'react';
 
 const About: React.FC = () => {
   return (
-    <div className="About">
-      <h2>About PipBoy Wallet</h2>
+    <div className="about">
+      <h2>About Overpass PitBoy Wallet</h2>
       <p>
-        PipBoy Wallet is a state-of-the-art wallet solution for managing TON transactions with ease and security.
+        Overpass PitBoy Wallet leverages state-of-the-art payment channels to provide
+        secure, fast, and scalable transactions for your digital assets. Our wallet
+        ensures that you can manage your funds with ease and confidence, offering
+        seamless integration with various blockchain networks and user-friendly
+        interfaces. Whether you're a casual user or a professional trader, Overpass
+        PitBoy Wallet is designed to meet your needs with robust features and top-tier
+        security measures.
       </p>
     </div>
   );
