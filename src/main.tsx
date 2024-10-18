@@ -1,18 +1,20 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
-import { TonConnectUIProvider } from '@tonconnect/ui-react'
-import './styles/globals.css'
-import './styles/PipBoyWalletDashboard.css' 
-import App from './App' 
+// src/main.tsx
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import './styles/globals.css';
+import './styles/PipBoyWalletDashboard.css';
+import OpApp from './App'; // Imports the default export from App.tsx
+
+const rootElement = document.getElementById('root') as HTMLElement;
+
+const root = ReactDOM.createRoot(rootElement);
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <TonConnectUIProvider>
-        <App />
-      </TonConnectUIProvider>
+      <OpApp />
     </BrowserRouter>
   </React.StrictMode>
-)
+);

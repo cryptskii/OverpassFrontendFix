@@ -1,8 +1,10 @@
-import React from 'react'
-import { useTonConnectUI } from '@tonconnect/ui-react'
+// src/components/WalletConnect.tsx
+
+import React from 'react';
+import { useTonConnectUI } from '@tonconnect/ui-react';
 
 const WalletConnect: React.FC = () => {
-  const [tonConnectUI] = useTonConnectUI()
+  const [tonConnectUI] = useTonConnectUI();
 
   return (
     <button
@@ -11,7 +13,7 @@ const WalletConnect: React.FC = () => {
     >
       Connect Wallet
     </button>
-  )
-}
+  );
+};
 
-export default WalletConnect
+export default WalletConnect; // Default export

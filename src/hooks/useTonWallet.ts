@@ -2,7 +2,7 @@ import { useTonConnectUI } from "@tonconnect/ui-react";
 import { useState, useEffect } from "react";
 import { TonClient as TonClientCore, Address, TonClient, WalletContractV4 } from "@ton/ton";
 import { mnemonicNew, mnemonicToPrivateKey } from "@ton/crypto";
-
+import { Transaction } from '../common/types';
 // Create Client
 const tonClient = new TonClient({
   endpoint: 'https://toncenter.com/api/v2/jsonRPC',

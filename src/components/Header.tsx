@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import WalletConnect from './WalletConnect'
+import WalletConnect from './WalletConnect'; // Default import
+
 
 export const Header: React.FC = () => {
   return (

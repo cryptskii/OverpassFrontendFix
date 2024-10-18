@@ -1,33 +1,32 @@
-import React from 'react'
+// src/components/TransactionList.tsx
 
-interface Transaction {
-  id: string
-  amount: number
-  type: 'send' | 'receive'
-  address: string
-  timestamp: number
+import React from 'react';
+
+interface Token {
+  name: string;
+  symbol: string;
+  balance: string;
 }
 
-interface TransactionListProps {
-  transactions: Transaction[]
+interface TokenListProps {
+  tokens: Token[];
 }
 
-const TransactionList: React.FC<TransactionListProps> = ({ transactions }) => {
+const TokenList: React.FC<TokenListProps> = ({ tokens }) => {
   return (
     <div className="bg-gray-700 p-4 rounded-lg shadow-md">
-      <h2 className="text-xl font-semibold mb-4">Recent Transactions</h2>
+      <h2 className="text-xl font-semibold mb-4">Tokens</h2>
       <ul className="space-y-2">
-        {transactions.map((tx) => (
-          <li key={tx.id} className="flex justify-between items-center">
-            <span className={tx.type === 'receive' ? 'text-green-400' : 'text-red-400'}>
-              {tx.type === 'receive' ? '+' : '-'}{tx.amount} TON
-            </span>
-            <span className="text-sm text-gray-400">{new Date(tx.timestamp).toLocaleString()}</span>
+        {tokens.map((token, index) => (
+          <li key={index} className="flex justify-between items-center">
+            <span className="text-lg font-semibold">{token.name}</span>
+            <span className="text-sm text-gray-400">{token.symbol}</span>
+            <span className="text-lg font-semibold">{token.balance}</span>
           </li>
         ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default TransactionList
+export default TokenList; // Default export

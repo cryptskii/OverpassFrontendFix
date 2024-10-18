@@ -1,7 +1,9 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { resolve } from 'path'
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
+// vite.config.ts
+
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { resolve } from 'path';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
 export default defineConfig({
   plugins: [
@@ -32,4 +34,4 @@ export default defineConfig({
   server: {
     open: true,
   },
-})
+});
