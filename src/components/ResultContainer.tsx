@@ -1,8 +1,7 @@
-import BN from 'bn.js'
+
 import { useCallback, useMemo } from 'react'
 import { Cell, loadStateInit } from '@ton/ton'
 import { useTonWallet, useTonConnectUI } from '@tonconnect/ui-react'
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -18,9 +17,8 @@ export function ResultContainer({
   address: string
   cell?: Cell
   init?: Cell
-  amount: BN | bigint
-}) {
-  const wallet = useTonWallet()
+  amount: string
+}) {  const wallet = useTonWallet()
   const [tonConnectUI] = useTonConnectUI()
   const binData = useMemo(
     () => cell && cell.toBoc().toString('base64').replace(/\//g, '_').replace(/\+/g, '-'),

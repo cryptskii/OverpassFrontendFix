@@ -1,19 +1,17 @@
 import React from 'react'
-import ReactDOM, { createRoot } from 'react-dom/client'
+import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { TonConnectUIProvider } from '@tonconnect/ui-react'
-import './App'
 import './styles/globals.css'
 import './styles/PipBoyWalletDashboard.css' 
-import { App }  from './App'
+import { OpApp } from './App'  // Import OpApp instead of App
 
-
-export const root = createRoot(document.getElementById('app')!)
+const root = ReactDOM.createRoot(document.getElementById('app') as HTMLElement)
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <TonConnectUIProvider>
-        < App />
+        <OpApp />
       </TonConnectUIProvider>
     </BrowserRouter>
   </React.StrictMode>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { } from 'vite'
 import { Routes, Route, Outlet, useNavigate } from 'react-router-dom';
 import { TonConnectUIProvider, TonConnectButton, useTonConnectUI } from '@tonconnect/ui-react';
 import { TonAccessProvider } from './components/TonAccessProvider';
@@ -9,35 +8,20 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Dashboard from './pages/Dashboard';
 
-
-export const App: React.FC = () => {
-  return (
-    <div>
-      Hello, World!
-    </div>
-  );
+const LoadingComponent: React.FC<{ isInitialized: boolean, isLoading: boolean }> = ({ isInitialized, isLoading }) => {
+  if (!isInitialized || isLoading) {
+    return <div><img src="../assets/loadingOPlogo.gif" alt="Loading..." /></div>;
+  }
+  return null;
 };
 
-
-export function OpApp() {
-  useEffect(() => {
-    if (window.location.href === 'https://github.com/cryptskii/OverpassFrontendFix/') {
-      window.location.href = 'https://overpass-channels-czhd-git-crypskii-brandons-projects-d6012021.vercel.app/'
-    }
-  }, [])
-}
-
-
+export const App: React.FC = () => {
   const [tonConnectUI] = useTonConnectUI();
   const navigate = useNavigate();
-  // const { theme, toggleTheme } = useTheme();
   const [isInitialized, setIsInitialized] = useState(false);
-
-  // Placeholder values
-  const connected = false;
-  const isLoading = false;
-  const error: null = null;
-  const theme: 'light' | 'dark' = 'light';
+  const [connected, setConnected] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [theme] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
     const initializeApp = async () => {
@@ -45,9 +29,10 @@ export function OpApp() {
         // Simulating an asynchronous initialization process
         await new Promise(resolve => setTimeout(resolve, 1000));
         setIsInitialized(true);
+        setIsLoading(false);
       } catch (error) {
         console.error('Failed to initialize app:', error);
-        // Handle initialization error
+        setIsLoading(false);
       }
     };
 
@@ -59,21 +44,18 @@ export function OpApp() {
 
     const favicon = document.querySelector('link[rel="icon"]') as HTMLLinkElement | null;
     if (favicon) {
-      favicon.href = connected ? '/logo.png' : '/logo-not-connected.png'
+      favicon.href = connected ? '/logo.png' : '/logo-not-connected.png';
     }
-
- 
   }, [connected]);
 
   const handleConnect = async () => {
     try {
       const walletInfo = await tonConnectUI.connectWallet();
       console.log('Connected wallet:', walletInfo);
-      // Perform any necessary actions after successful connection
+      setConnected(true);
       navigate('/dashboard');
     } catch (error) {
       console.error('Failed to connect wallet:', error);
-      // Handle connection error
     }
   };
 
@@ -85,11 +67,7 @@ export function OpApp() {
     }
   };
 
-  const LoadingComponent = () => {
-    if (!isInitialized || isLoading) {
-      return <div><img src="../assets/loadingOPlogo.gif" alt="Loading..." /></div>;
-    }
-    return (
+  return (
     <div className={`App ${theme}`}>
       <TonConnectUIProvider manifestUrl="https://overpass-frontend-den9pqd7n-brandons-projects-d6012021.vercel.app/tonconnect-manifest.json">
         <TonAccessProvider>
@@ -116,7 +94,6 @@ export function OpApp() {
               ) : (
                 <button onClick={handleNavigate}>Go to Dashboard</button>
               )}
-              {/* <button onClick={toggleTheme}>Toggle Theme</button> */}
             </div>
             <div className="App-status">
               <p>Connected: {connected ? 'Yes' : 'No'}</p>
@@ -125,9 +102,21 @@ export function OpApp() {
           <div className="App-content">
             <Outlet />
           </div>
-          <LoadingComponent />
+          <LoadingComponent isInitialized={isInitialized} isLoading={isLoading} />
         </TonAccessProvider>
       </TonConnectUIProvider>
     </div>
   );
 };
+
+export const OpApp: React.FC = () => {
+  useEffect(() => {
+    if (window.location.href === 'https://github.com/cryptskii/OverpassFrontendFix/') {
+      window.location.href = 'https://overpass-channels-czhd-git-crypskii-brandons-projects-d6012021.vercel.app/';
+    }
+  }, []);
+
+  return <App />;
+};
+
+export default OpApp;
