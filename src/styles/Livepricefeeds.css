@@ -1,0 +1,41 @@
+/* src/components/Livepricefeeds.module.css */
+
+.livePriceFeeds {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .livePriceFeeds h2 {
+    color: #00ff00;
+    font-family: 'VT323', monospace;
+    margin-bottom: 10px;
+  }
+  
+  .priceFeedList {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .priceFeedItem {
+    background-color: #1e1e1e;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #00ff00;
+    width: 150px;
+    text-align: center;
+  }
+  
+  .priceFeedItem h3 {
+    color: #00ff00;
+    margin-bottom: 5px;
+  }
+  
+  .priceFeedItem p {
+    color: #ccc;
+    font-size: 1.2rem;
+  }
+  

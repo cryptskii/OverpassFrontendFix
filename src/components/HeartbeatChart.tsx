@@ -1,8 +1,9 @@
 // src/components/HeartbeatChart.tsx
 
-import React, { useEffect, useRef } from 'react';
-import { Line } from 'react-chartjs-2';
-import '/styles/HeartbeatChart.css';import {
+import React from 'react';
+import { Line } from "react-chartjs-2";
+import '../styles/HeartbeatChart.css';
+import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
@@ -10,9 +11,9 @@ import '/styles/HeartbeatChart.css';import {
   LineElement,
   TimeScale,
   Tooltip,
+  Legend
 } from 'chart.js';
 import 'chartjs-adapter-date-fns';
-import Chart from 'chart.js/auto';
 
 // Register Chart.js components
 ChartJS.register(
@@ -21,7 +22,8 @@ ChartJS.register(
   PointElement,
   LineElement,
   TimeScale,
-  Tooltip
+  Tooltip,
+  Legend
 );
 
 // Define the props interface
@@ -30,8 +32,6 @@ interface HeartbeatChartProps {
 }
 
 const HeartbeatChart: React.FC<HeartbeatChartProps> = ({ priceFeed }) => {
-  const chartRef = useRef<ChartJS<'line'> | null>(null);
-
   // Prepare the data
   const data = {
     labels: priceFeed.map((_, index) => index),
@@ -39,7 +39,7 @@ const HeartbeatChart: React.FC<HeartbeatChartProps> = ({ priceFeed }) => {
       {
         label: 'Price',
         data: priceFeed,
-        borderColor: '#00FF00', // Bright green color
+        borderColor: '#00ff00', // Bright green color
         backgroundColor: 'rgba(0, 255, 0, 0.1)',
         borderWidth: 2,
         pointRadius: 0, // Remove points
@@ -87,11 +87,10 @@ const HeartbeatChart: React.FC<HeartbeatChartProps> = ({ priceFeed }) => {
   };
 
   return (
-    <div className="chartContainer">
-      <Line
-        data={data}
-        options={options}
-      />
+    <div className='chartContainer'>
+      <Line data={data} options={options} />
     </div>
   );
-};export default HeartbeatChart;
+};
+
+export default HeartbeatChart;

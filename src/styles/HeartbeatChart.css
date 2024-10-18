@@ -1,58 +1,68 @@
-/* HeartbeatChart.css */
+/* src/components/HeartbeatChart.module.css */
 
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 .chartContainer {
     width: 100%;
-    height: 100%;
+    height: 300px; /* Adjust as needed */
+    background-color: #000; /* Black background */
+    border: 2px solid #00ff00; /* Green border */
+    border-radius: 8px;
+    padding: 10px;
+    box-sizing: border-box;
     position: relative;
 }
 
-.chartContainer svg {
-    position: absolute;
-    top: 0;
-    left: 0;
+.chartContainer canvas {
+    /* Ensures the canvas takes full container space */
+    width: 100% !important;
+    height: 100% !important;
 }
-.chartContainer .chart {
+
+/* Optional: Additional styling for chart elements */
+.chart {
     width: 100%;
     height: 100%;
 }
-.chartContainer .chart .line {
+
+.line {
     fill: none;
-    stroke: #000;
+    stroke: #00ff00; /* Default green line */
     stroke-width: 2;
 }
-.chartContainer .chart .line.red {
+
+.line.red {
     stroke: #ff0000;
 }
-.chartContainer .chart .line.green {
+
+.line.green {
     stroke: #00ff00;
 }
 
-.chartContainer .chart .axis {
+.axis {
     font-family: 'VT323', monospace;
     font-size: 0.8rem;
-    fill: #000;
+    fill: #00ff00;
 }
 
-.chartContainer .chart .axis .domain {
+.axis .domain {
     display: none;
 }
 
-.chartContainer .chart .axis .tick line {
-    stroke: #000;
+.axis .tick line {
+    stroke: #00ff00;
     stroke-width: 1;
 }
 
-.chartContainer .chart .axis .tick text {
-    fill: #000;
+.axis .tick text {
+    fill: #00ff00;
 }
 
-.chartContainer .chart .axis .tick.minor line {
-    stroke: #000;
+.axis .tick.minor line {
+    stroke: #00ff00;
     stroke-width: 1;
 }
 
-.chartContainer .chart .axis .tick.minor text {
-    fill: #000;
+.axis .tick.minor text {
+    fill: #00ff00;
 }

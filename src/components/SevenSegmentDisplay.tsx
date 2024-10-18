@@ -11,9 +11,8 @@ const SevenSegmentDisplay: React.FC<SevenSegmentDisplayProps> = ({ value }) => {
   return (
     <div className="display">
       <h1 className="display-h1">{value}</h1>
-      <p className="display-p">Seven Segment Display</p>
+      <p className="display-p">Current Price</p>
     </div>
   );
 };
-
 export default SevenSegmentDisplay;
