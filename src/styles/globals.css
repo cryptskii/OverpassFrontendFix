@@ -17,35 +17,22 @@ body {
 }
 .op-logo {
   width: 50%;
-  height: auto;
+  height: 30%;
   margin-top: 2px;
 }
 
 .op-name {
   display: flex;
   flex-direction: column;
-  justify-content: bottom;
-  align-items: center;
-  max-width: 98%;
-  margin-bottom: 120px;
-}
-
-
-
-.ton-connect-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 80px;
-  height: 40px;
-  color: rgba(9, 255, 13, 0.889);
-  background-color: var(--pip-boy-dark-green);
-  border-radius: 80%;
-  display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
+  max-width: 98%;
+  margin-bottom: 1px;
 }
+
+
+
+
 .pip-boy-container {
   max-width: 1024px;
   margin: 0 auto;

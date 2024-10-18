@@ -10,14 +10,12 @@ import About from './pages/About';
 import Dashboard from './pages/Dashboard';
 import LoadScreen from './components/LoadScreen';
 import ErrorBoundary from './components/ErrorBoundary';
-import AudioPlayer from './components/AudioPlayer';
 
 const App: React.FC = () => {
   const [isInitialized, setIsInitialized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [tonConnectUI] = useTonConnectUI();
-  const [isAudioPlaying, setIsAudioPlaying] = useState(true);
-  const [isInitialAudioEnded, setIsInitialAudioEnded] = useState(false);
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
 
   useEffect(() => {
     const initializeApp = async () => {
@@ -25,6 +23,7 @@ const App: React.FC = () => {
         await new Promise((resolve) => setTimeout(resolve, 8000)); // Simulating initialization
         setIsInitialized(true);
         setIsLoading(false);
+        setIsAudioPlaying(true); // Start playing audio after initialization
       } catch (error) {
         console.error('Failed to initialize app:', error);
         setIsLoading(false);
@@ -43,58 +42,46 @@ const App: React.FC = () => {
     }
   }, [tonConnectUI.connected]);
 
-  const handleInitialAudioEnd = () => {
-    setIsInitialAudioEnded(true);
-    setIsAudioPlaying(false);
-  };
-
   if (!isInitialized || isLoading) {
-    return <LoadScreen />;
+    return <LoadScreen isPlaying={false} volume={0} loop={false} />;
   }
 
   return (
     <ErrorBoundary>
-      <div className="App">
-        <AudioPlayer 
-          isPlaying={isAudioPlaying && !isInitialAudioEnded}
-          volume={0.5}
-          onEnded={handleInitialAudioEnd}
-        />
-        <div className="pip-boy-container">
-          <div className="scanline"></div>
-          <div className="pip-boy-screen">
-            <Header />
-            <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 1000 }}>
-              <TonConnectButton className="custom-ton-button" />
-            </div>
-            <main className="pip-boy-content">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route
-                  path="/dashboard"
-                  element={
-                    tonConnectUI.connected ? (
-                      <Dashboard />
-                    ) : (
-                      <Navigate to="/" replace />
-                    )
-                  }
-                />
-                <Route
-                  path="/ton-connect"
-                  element={
-                    tonConnectUI.connected ? (
-                      <Navigate to="/dashboard" replace />
-                    ) : (
-                      <LoadScreen showConnectButton />
-                    )
-                  }
-                />
-              </Routes>
-            </main>
-            <Footer />
+      <div className="pip-boy-container">
+        <div className="scanline"></div>
+        <div className="pip-boy-screen">
+          <Header />
+          <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 1000 }}>
+            <TonConnectButton className="custom-ton-button" />
           </div>
+          <main className="pip-boy-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route
+                path="/dashboard"
+                element={
+                  tonConnectUI.connected ? (
+                    <Dashboard />
+                  ) : (
+                    <Navigate to="/" replace />
+                  )
+                }
+              />
+              <Route
+                path="/ton-connect"
+                element={
+                  tonConnectUI.connected ? (
+                    <Navigate to="/dashboard" replace />
+                  ) : (
+                    <LoadScreen showConnectButton={true} isPlaying={false} volume={0} loop={false} />
+                  )
+                }
+              />
+            </Routes>
+          </main>
+          <Footer />
         </div>
       </div>
     </ErrorBoundary>
@@ -102,4 +89,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-

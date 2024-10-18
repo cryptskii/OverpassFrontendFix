@@ -1,8 +1,12 @@
+// src/components/LoadScreen.tsx
 import React from 'react';
 import { TonConnectButton } from '@tonconnect/ui-react';
 
 interface LoadScreenProps {
   showConnectButton?: boolean;
+  isPlaying: boolean;
+  volume: number;
+  loop: boolean;
 }
 
 const LoadScreen: React.FC<LoadScreenProps> = ({ showConnectButton = false }) => {

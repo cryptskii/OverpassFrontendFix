@@ -65,11 +65,11 @@ const App: React.FC = () => {
               path="/" 
               element={
                 isLoading ? (
-                  <LoadScreen />
+                  <LoadScreen isPlaying={false} volume={0} loop={false} />
                 ) : tonConnectUI.connected ? (
                   <Navigate to="/dashboard" replace />
                 ) : (
-                  <LoadScreen showConnectButton />
+                  <LoadScreen showConnectButton isPlaying={false} volume={0} loop={false} />
                 )
               } 
             />
