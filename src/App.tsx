@@ -9,15 +9,25 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Dashboard from './pages/Dashboard';
 
-export function App() {
+
+export const App: React.FC = () => {
+  return (
+    <div>
+      Hello, World!
+    </div>
+  );
+};
+
+
+export function OpApp() {
   useEffect(() => {
     if (window.location.href === 'https://github.com/cryptskii/OverpassFrontendFix/') {
       window.location.href = 'https://overpass-channels-czhd-git-crypskii-brandons-projects-d6012021.vercel.app/'
     }
   }, [])
-const App: React.FC = () => {
-  // Commented out due to missing imports
-  // const { walletInfo, isLoading, error } = useTonConnect();
+}
+
+
   const [tonConnectUI] = useTonConnectUI();
   const navigate = useNavigate();
   // const { theme, toggleTheme } = useTheme();
@@ -75,17 +85,13 @@ const App: React.FC = () => {
     }
   };
 
-  if (!isInitialized || isLoading) {
-    return <div>Loading...</div>; // Replace with LoadingSpinner once available
-  }
-
-  if (error) {
-    return <div>Error: {String(error)}</div>;
-  }
-
-  return (
+  const LoadingComponent = () => {
+    if (!isInitialized || isLoading) {
+      return <div><img src="../assets/loadingOPlogo.gif" alt="Loading..." /></div>;
+    }
+    return (
     <div className={`App ${theme}`}>
-      <TonConnectUIProvider manifestUrl="https://overpass-frontend-n659vlke6-brandons-projects-d6012021.vercel.app/tonconnect-manifest.json">
+      <TonConnectUIProvider manifestUrl="https://overpass-frontend-den9pqd7n-brandons-projects-d6012021.vercel.app/tonconnect-manifest.json">
         <TonAccessProvider>
           <div className="pip-boy-container">
             <div className="pip-boy-screen scanlines">
@@ -101,7 +107,7 @@ const App: React.FC = () => {
             </div>
           </div>
           <header className="App-header">
-            {/* <img src={logoImage} className="App-logo" alt="logo" style={{ width: '40px', height: 'auto' }} /> */}
+            <img src={"./assets/2.png"} className="App-logo" alt="logo" style={{ width: '40px', height: 'auto' }} /> 
             <h1>PipBoy Wallet</h1>
             <TonConnectButton />
             <div className="App-buttons">
@@ -119,9 +125,9 @@ const App: React.FC = () => {
           <div className="App-content">
             <Outlet />
           </div>
+          <LoadingComponent />
         </TonAccessProvider>
       </TonConnectUIProvider>
     </div>
   );
 };
-export default App;

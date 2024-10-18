@@ -1,19 +1,20 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
+import ReactDOM, { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { TonConnectUIProvider } from '@tonconnect/ui-react'
 import './App'
 import './styles/globals.css'
 import './styles/PipBoyWalletDashboard.css' 
-import Dashboard from './pages/Dashboard'
+import { App }  from './App'
 
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+export const root = createRoot(document.getElementById('app')!)
+root.render(
   <React.StrictMode>
-    <TonConnectUIProvider manifestUrl="/tonconnect-manifest.json">
-      <BrowserRouter>
-        <Dashboard />
-      </BrowserRouter>
-    </TonConnectUIProvider>
-  </React.StrictMode>,
+    <BrowserRouter>
+      <TonConnectUIProvider>
+        < App />
+      </TonConnectUIProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 )
