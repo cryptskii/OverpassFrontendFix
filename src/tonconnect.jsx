@@ -2,7 +2,7 @@ import { TonConnectUIProvider } from '@tonconnect/ui-react';
 
 export function App() {
     return (
-        <TonConnectUIProvider manifestUrl="ovp-eight.vercel.app/tonconnect-manifest.json">
+        <TonConnectUIProvider manifestUrl="https://ovp-eight.vercel.app/tonconnect-manifest.json">
             { OverpassFrontendFix.App }
         </TonConnectUIProvider>
     );
