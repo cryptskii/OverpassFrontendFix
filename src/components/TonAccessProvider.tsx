@@ -1,3 +1,5 @@
+// src/components/TonAccessProvider.tsx
+
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import TonWeb from 'tonweb';
 import { getHttpEndpoint } from '@orbs-network/ton-access';

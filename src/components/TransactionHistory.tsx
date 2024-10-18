@@ -1,49 +1,51 @@
-import React, { useState, useEffect } from 'react'
-import { useTonWallet } from '../hooks/useTonWallet'
-import { fetchTransactions } from '../utils/api.js'
+// src/components/TransactionHistory.tsx
+
+import React from 'react';
+import { useTonWallet } from '../hooks/useTonWallet';
+import { fetchTransactions } from '../utils/api'; // Ensure this function is correctly implemented
 
 interface Transaction {
-  id: string
-  amount: string
-  type: 'send' | 'receive'
-  address: string
-  timestamp: number
+  id: string;
+  amount: string;
+  type: 'send' | 'receive';
+  address: string;
+  timestamp: number;
 }
 
 const TransactionHistory: React.FC = () => {
-  const { address } = useTonWallet()
-  const [transactions, setTransactions] = useState<Transaction[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const { address } = useTonWallet();
+  const [transactions, setTransactions] = React.useState<Transaction[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const loadTransactions = async () => {
       if (address) {
         try {
-          setLoading(true)
-          const txs = await fetchTransactions(address, false) // Assuming mainnet by default
-          setTransactions(txs)
-          setLoading(false)
+          setLoading(true);
+          const txs = await fetchTransactions(address, false); // Assuming mainnet by default
+          setTransactions(txs);
+          setLoading(false);
         } catch (err) {
-          setError('Failed to load transactions. Please try again later.')
-          setLoading(false)
+          setError('Failed to load transactions. Please try again later.');
+          setLoading(false);
         }
       }
-    }
+    };
 
-    loadTransactions()
-  }, [address])
+    loadTransactions();
+  }, [address]);
 
   if (loading) {
-    return <p>Loading transaction history...</p>
+    return <p>Loading transaction history...</p>;
   }
 
   if (error) {
-    return <p className="text-red-500">{error}</p>
+    return <p className="text-red-500">{error}</p>;
   }
 
   return (
-    <div className="bg-gray-700 p-4 rounded-lg shadow-md">
+    <div className="bg-gray-700 p-4 rounded-lg shadow-md mt-4">
       <h2 className="text-xl font-semibold mb-4">Transaction History</h2>
       {transactions.length === 0 ? (
         <p>No transactions found.</p>
@@ -60,7 +62,7 @@ const TransactionHistory: React.FC = () => {
         </ul>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default TransactionHistory
+export default TransactionHistory;

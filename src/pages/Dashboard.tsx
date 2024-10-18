@@ -3,14 +3,15 @@
 import React, { useEffect, useState } from 'react';
 import { useTonWallet } from '../hooks/useTonWallet';
 import { getHttpEndpoint } from '@orbs-network/ton-access';
-import { TonClient, WalletContractV4, fromNano, address, beginCell, toNano, MessageRelaxed } from '@ton/ton';
+import { TonClient, WalletContractV4, fromNano, Address, beginCell, toNano, MessageRelaxed } from '@ton/ton';
 import { mnemonicToWalletKey } from '@ton/crypto';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import WalletInfo from '../components/WalletInfo'; // Default import remains
-import SendTransaction from '../components/SendTransaction'; // Default import
-import TransactionList from '../components/TransactionList'; // Default import
-import { Transaction }  from '../common/types';
+import { WalletInfo } from '../components/WalletInfo'; // Named import
+import SendTransaction from '../components/SendTransaction';
+import TransactionHistory from '../components/TransactionHistory';
+import Balance from '../components/Balance';
+import { Transaction } from '../common/types';
 
 interface DashboardProps {
   transactions: Transaction[];
@@ -40,8 +41,8 @@ const Dashboard: React.FC<DashboardProps> = ({ transactions, fetchTransactions }
     const fetchTokenBalance = async () => {
       if (walletAddress && client) {
         try {
-          const balance = await client.getBalance(address(walletAddress));
-          setBalance(fromNano(balance));
+          const balanceBigInt = await client.getBalance(Address.parse(walletAddress));
+          setBalance(fromNano(balanceBigInt));
         } catch (error) {
           console.error('Error fetching balance:', error);
         }
@@ -72,7 +73,7 @@ const Dashboard: React.FC<DashboardProps> = ({ transactions, fetchTransactions }
               bounce: false,
               bounced: false,
               src: null,
-              dest: address('EQCD39VS5jcptHL8vMjEXrzGaRcCVYto7HUn4bpAOg8xqB2N'),
+              dest: Address.parse('EQCD39VS5jcptHL8vMjEXrzGaRcCVYto7HUn4bpAOg8xqB2N'),
               value: toNano('1'),
               ihrFee: BigInt(0),
               fwdFee: BigInt(0),
@@ -93,59 +94,14 @@ const Dashboard: React.FC<DashboardProps> = ({ transactions, fetchTransactions }
   return (
     <div className="Dashboard">
       <Header />
-      <div className="container">
-        <h1>Dashboard</h1>
+      <div className="container p-6">
+        <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
         <WalletInfo />
-        <Balance balance={balance} />
+        <Balance />
         <SendTransaction onSend={sendTransaction} />
-        <h2>Recent Transactions</h2>
-        <ul>
-          {transactions.map((tx) => (
-            <li key={tx.id}>
-              <p>
-                <strong>ID:</strong> {tx.id}
-              </p>
-              <p>
-                <strong>Amount:</strong> {tx.amount} TON
-              </p>
-              <p>
-                <strong>Date:</strong> {tx.date}
-              </p>
-              <p>
-                <strong>Sender:</strong> {tx.sender}
-              </p>
-              <p>
-                <strong>Recipient:</strong> {tx.recipient}
-              </p>
-              <p>
-                <strong>Status:</strong> {tx.status}
-              </p>
-              <p>
-                <strong>Type:</strong> {tx.type}
-              </p>
-              {tx.description && (
-                <p>
-                  <strong>Description:</strong> {tx.description}
-                </p>
-              )}
-            </li>
-          ))}
-        </ul>
+        <TransactionHistory />
       </div>
       <Footer />
-    </div>
-  );
-};
-
-interface BalanceProps {
-  balance: string;
-}
-
-const Balance: React.FC<BalanceProps> = ({ balance }) => {
-  return (
-    <div className="Balance">
-      <h2>Balance</h2>
-      <p>{balance} TON</p>
     </div>
   );
 };

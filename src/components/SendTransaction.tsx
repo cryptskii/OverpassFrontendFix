@@ -1,55 +1,57 @@
-import React, { useState } from 'react'
-import { useTonConnectUI } from '@tonconnect/ui-react'
-import { useTonAccess } from './TonAccessProvider'
-import TonWeb from 'tonweb'
+// src/components/SendTransaction.tsx
+
+import React, { useState } from 'react';
+import { useTonConnectUI } from '@tonconnect/ui-react';
+import { useTonAccess } from './TonAccessProvider';
+import TonWeb from 'tonweb';
 
 interface SendTransactionProps {
-  onSend?: () => void
+  onSend?: () => void;
 }
 
 const SendTransaction: React.FC<SendTransactionProps> = ({ onSend }) => {
-  const [tonConnectUI] = useTonConnectUI()
-  const { tonweb } = useTonAccess()
-  const [recipient, setRecipient] = useState('')
-  const [amount, setAmount] = useState('')
-  const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
-  const [isConfirming, setIsConfirming] = useState(false)
-  const [transactionStatus, setTransactionStatus] = useState<string | null>(null)
+  const [tonConnectUI] = useTonConnectUI();
+  const { tonweb } = useTonAccess();
+  const [recipient, setRecipient] = useState('');
+  const [amount, setAmount] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [isConfirming, setIsConfirming] = useState(false);
+  const [transactionStatus, setTransactionStatus] = useState<string | null>(null);
 
   const validateInputs = (): boolean => {
     if (!recipient) {
-      setError('Please enter a recipient address')
-      return false
+      setError('Please enter a recipient address');
+      return false;
     }
     if (!amount || parseFloat(amount) <= 0) {
-      setError('Please enter a valid amount')
-      return false
+      setError('Please enter a valid amount');
+      return false;
     }
-    return true
-  }
+    return true;
+  };
 
   const handleConfirm = () => {
     if (validateInputs()) {
-      setIsConfirming(true)
-      setError(null)
+      setIsConfirming(true);
+      setError(null);
     }
-  }
+  };
 
   const handleCancel = () => {
-    setIsConfirming(false)
-    setError(null)
-  }
+    setIsConfirming(false);
+    setError(null);
+  };
 
   const handleSend = async () => {
     if (!tonConnectUI.connected || !tonweb) {
-      setError('Please connect your wallet first')
-      return
+      setError('Please connect your wallet first');
+      return;
     }
 
     try {
-      setTransactionStatus('Preparing transaction...')
-      const amountNano = TonWeb.utils.toNano(amount)
+      setTransactionStatus('Preparing transaction...');
+      const amountNano = TonWeb.utils.toNano(amount);
       const transaction = {
         validUntil: Math.floor(Date.now() / 1000) + 60 * 20, // Valid for 20 minutes
         messages: [
@@ -58,29 +60,29 @@ const SendTransaction: React.FC<SendTransactionProps> = ({ onSend }) => {
             amount: amountNano.toString(),
           },
         ],
-      }
+      };
 
-      setTransactionStatus('Sending transaction...')
-      const result = await tonConnectUI.sendTransaction(transaction)
-      setSuccess(`Transaction sent successfully. Hash: ${result.boc}`)
-      setTransactionStatus('Transaction completed')
-      setError(null)
-      setIsConfirming(false)
-      setRecipient('')
-      setAmount('')
+      setTransactionStatus('Sending transaction...');
+      const result = await tonConnectUI.sendTransaction(transaction);
+      setSuccess(`Transaction sent successfully. Hash: ${result.boc}`);
+      setTransactionStatus('Transaction completed');
+      setError(null);
+      setIsConfirming(false);
+      setRecipient('');
+      setAmount('');
       if (onSend) {
-        onSend()
+        onSend();
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? `Failed to send transaction: ${err.message}` : `Failed to send transaction: ${String(err)}`
-      setError(errorMessage)
-      setTransactionStatus(null)
-      setSuccess(null)
+      const errorMessage = err instanceof Error ? `Failed to send transaction: ${err.message}` : `Failed to send transaction: ${String(err)}`;
+      setError(errorMessage);
+      setTransactionStatus(null);
+      setSuccess(null);
     }
-  }
+  };
 
   return (
-    <div className="bg-gray-700 p-4 rounded-lg shadow-md">
+    <div className="bg-gray-700 p-4 rounded-lg shadow-md mt-4">
       <h2 className="text-xl font-semibold mb-4">Send Transaction</h2>
       {!isConfirming ? (
         <>
@@ -114,8 +116,8 @@ const SendTransaction: React.FC<SendTransactionProps> = ({ onSend }) => {
       ) : (
         <div className="mb-4">
           <h3 className="text-lg font-semibold mb-2">Confirm Transaction</h3>
-          <p>Recipient: {recipient}</p>
-          <p>Amount: {amount} TON</p>
+          <p><strong>Recipient:</strong> {recipient}</p>
+          <p><strong>Amount:</strong> {amount} TON</p>
           <div className="mt-4">
             <button
               onClick={handleSend}
@@ -136,7 +138,7 @@ const SendTransaction: React.FC<SendTransactionProps> = ({ onSend }) => {
       {success && <p className="text-green-500 mt-2">{success}</p>}
       {transactionStatus && <p className="text-blue-500 mt-2">{transactionStatus}</p>}
     </div>
-  )
-}
+  );
+};
 
-export default SendTransaction
+export default SendTransaction;
