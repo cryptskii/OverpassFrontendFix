@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useTonWallet } from '../hooks/useTonWallet'
-import { fetchTransactions } from "../utils/api";
+import { fetchTransactions } from '../utils/api.js'
+
 interface Transaction {
   id: string
   amount: string
@@ -20,7 +21,7 @@ const TransactionHistory: React.FC = () => {
       if (address) {
         try {
           setLoading(true)
-          const txs = await fetchTransactions(address)
+          const txs = await fetchTransactions(address, false) // Assuming mainnet by default
           setTransactions(txs)
           setLoading(false)
         } catch (err) {

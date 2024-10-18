@@ -6,6 +6,11 @@ import { getHttpEndpoint } from '@orbs-network/ton-access'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 
+export async function fetchTransactions(address: string, isTestnet: boolean) {
+  const tonapi = getTonapi(isTestnet)
+  const transactions = await tonapi.fetchTransactions(address)
+  return transactions
+}
 export function ApiSettings() {
   const [isTestnet, setTestnet] = useLocalStorage('deployerIsTestnet', 'false')
   const tonClient = useTonClient()

@@ -11,6 +11,7 @@ declare module 'tonapi-sdk-js' {
   }
 
   export class Api<T> {
+    [x: string]: any
     constructor(httpClient: HttpClient)
   }
 }

@@ -14,7 +14,7 @@ const AnalyticsReport: React.FC = () => {
       if (address) {
         try {
           setLoading(true);
-          const txs = await fetchTransactions(address);
+          const txs = await fetchTransactions(address, false); // Assuming mainnet by default
           processTransactionData(txs);
           setLoading(false);
         } catch (err) {
@@ -23,7 +23,6 @@ const AnalyticsReport: React.FC = () => {
         }
       }
     };
-
     loadTransactions();
   }, [address]);
 
