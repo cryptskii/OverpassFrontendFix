@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { } from 'vite'
 import { Routes, Route, Outlet, useNavigate } from 'react-router-dom';
 import { TonConnectUIProvider, TonConnectButton, useTonConnectUI } from '@tonconnect/ui-react';
 import { TonAccessProvider } from './components/TonAccessProvider';

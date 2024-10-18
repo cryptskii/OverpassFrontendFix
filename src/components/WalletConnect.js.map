@@ -1,0 +1,1 @@
+{"version":3,"file":"WalletConnect.js","sourceRoot":"","sources":["WalletConnect.tsx"],"names":[],"mappings":";;;;;AAAA,kDAAyB;AACzB,mDAAsD;AAEtD,MAAM,aAAa,GAAa,GAAG,EAAE;IACnC,MAAM,CAAC,YAAY,CAAC,GAAG,IAAA,0BAAe,GAAE,CAAA;IAExC,OAAO,CACL,0CACE,SAAS,EAAC,sEAAsE,EAChF,OAAO,EAAE,GAAG,EAAE,CAAC,YAAY,CAAC,aAAa,EAAE,qBAGpC,CACV,CAAA;AACH,CAAC,CAAA;AAED,kBAAe,aAAa,CAAA"}
