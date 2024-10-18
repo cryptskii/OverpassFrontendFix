@@ -18,8 +18,6 @@ body {
 }
 
 
-
-
 .pip-boy-container {
   max-width: 1024px;
   margin: 0 auto;
@@ -43,24 +41,12 @@ body {
 .pip-boy-header {
   text-align: center;
   font-size: 2em;
-  margin-bottom: 10%;
+  margin-bottom: 2%;
   text-shadow: 0 0 10px var(--pip-boy-green);
 }
 
-.op-logo {
-  width: 40%;
-  height: auto;
-  margin-bottom: 2px;
-}
 
-.logo-word {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  max-width: 98%;
-  margin-bottom: 20px;
-}
+
 
 
 .load-screen {
@@ -77,13 +63,14 @@ body {
   border: 1px solid var(--pip-boy-border);
   border-radius: 5px;
   padding: 30px;
-  max-width: 400px;
+  margin-top: 40%;
+  max-width: 60%;
 }
 
 .pip-boy-logo {
-  width: 40%;
-  height: auto;
-  margin-bottom: 20px;
+  width: 70%;
+  height: fit-content;
+  margin-bottom: 4px;
 }
 
 .loading-container {
@@ -94,18 +81,16 @@ body {
 }
 
 .loading-gif {
-  width: 90px;  /* Adjust based on your GIF's dimensions */
+  width: 50%;  /* Adjust based on your GIF's dimensions */
   height: auto;
-  margin-bottom: 20px;
+  margin-bottom: 2px;
 }
 
 .loading-text {
   font-size: 1.2em;
 }
 
-.connect-wallet-container {
-  margin-top: 20px;
-}
+
 
 .pip-boy-button {
   background-color: var(--pip-boy-dark-green);
@@ -124,7 +109,7 @@ body {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .pip-boy-button:hover {
@@ -136,7 +121,7 @@ body {
   background-color: var(--pip-boy-bg);
   color: var(--pip-boy-text);
   border: 1px solid var(--pip-boy-border);
-  padding: 8px;
+  padding: 4px;
   border-radius: 5px;
   font-family: 'Roboto Mono', monospace;
   font-size: 14px;
@@ -291,10 +276,10 @@ body {
 
 .connect-wallet .tc-connect-button {
   background-color: var(--pip-boy-green);
-  color: var(--pip-boy-bg);
+
   border: 2px solid var(--pip-boy-green);
   font-family: 'VT323', monospace;
-  font-size: 1.2em;
+  font-size: 6.2em;
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 10px 20px;
@@ -302,6 +287,10 @@ body {
 
 .connect-wallet .tc-connect-button:hover {
   position: relative;
+  top: 30%;
+  left: 10%;
   background-color: var(--pip-boy-dark-green);
-  color: var(--pip-boy-green);
+  color: rgba(94, 193, 36, 0.919);
 }
+
+

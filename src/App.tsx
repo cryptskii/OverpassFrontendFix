@@ -1,6 +1,7 @@
+// App.tsx
 import React, { useEffect, useState } from 'react';
 import './styles/PipBoyWalletDashboard.css';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { TonConnectButton, useTonConnectUI } from '@tonconnect/ui-react';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -9,12 +10,14 @@ import About from './pages/About';
 import Dashboard from './pages/Dashboard';
 import LoadScreen from './components/LoadScreen';
 import ErrorBoundary from './components/ErrorBoundary';
+import AudioPlayer from './components/AudioPlayer';
 
 const App: React.FC = () => {
-  const navigate = useNavigate();
   const [isInitialized, setIsInitialized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [tonConnectUI] = useTonConnectUI();
+  const [isAudioPlaying, setIsAudioPlaying] = useState(true);
+  const [isInitialAudioEnded, setIsInitialAudioEnded] = useState(false);
 
   useEffect(() => {
     const initializeApp = async () => {
@@ -40,12 +43,9 @@ const App: React.FC = () => {
     }
   }, [tonConnectUI.connected]);
 
-  const handleNavigate = () => {
-    if (tonConnectUI.connected) {
-      navigate('/dashboard');
-    } else {
-      navigate('/');
-    }
+  const handleInitialAudioEnd = () => {
+    setIsInitialAudioEnded(true);
+    setIsAudioPlaying(false);
   };
 
   if (!isInitialized || isLoading) {
@@ -55,12 +55,17 @@ const App: React.FC = () => {
   return (
     <ErrorBoundary>
       <div className="App">
+        <AudioPlayer 
+          isPlaying={isAudioPlaying && !isInitialAudioEnded}
+          volume={0.5}
+          onEnded={handleInitialAudioEnd}
+        />
         <div className="pip-boy-container">
           <div className="scanline"></div>
           <div className="pip-boy-screen">
             <Header />
             <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 1000 }}>
-              <TonConnectButton />
+              <TonConnectButton className="custom-ton-button" />
             </div>
             <main className="pip-boy-content">
               <Routes>
@@ -76,6 +81,16 @@ const App: React.FC = () => {
                     )
                   }
                 />
+                <Route
+                  path="/ton-connect"
+                  element={
+                    tonConnectUI.connected ? (
+                      <Navigate to="/dashboard" replace />
+                    ) : (
+                      <LoadScreen showConnectButton />
+                    )
+                  }
+                />
               </Routes>
             </main>
             <Footer />
@@ -87,3 +102,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+

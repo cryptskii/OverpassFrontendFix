@@ -1,4 +1,5 @@
 import { TonConnectUIProvider } from '@tonconnect/ui-react';
+import '../styles/globals.css';
 
 export function App() {
     return (
@@ -12,7 +13,7 @@ export const Header = () => {
     return (
       <header>
         <span>Overpass Frontend Fix</span>
-        <TonConnectButton />
+        <TonConnectButton className="ton-connect-button" />
       </header>
     );
   };

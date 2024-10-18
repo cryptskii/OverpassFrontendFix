@@ -1,4 +1,4 @@
-import React from "react";
+/*import React from "react";
 import TonWeb from "tonweb";
 
 
@@ -32,3 +32,6 @@ function App() {
 
 export { App, ConnectTONButton, connectWallet };
 export default App;
+//*/
+
+

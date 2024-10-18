@@ -16,21 +16,11 @@
 .scanline::before {
   content: "";
   position: absolute;
-  width: 100%;
+  width: 80%;
   height: 11px;
-  background-color: rgba(44, 168, 44, 0.039);
+  background-color: rgba(20, 242, 20, 0.039);
   animation: scanline 7.5s linear infinite;
 }
-
-.scanline-2::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 1px;
-  background-color: rgba(152, 251, 152, 0.029);
-  animation: scanline 2.5s linear infinite;
-}
-
 @keyframes scanline {
   0% {
     top: 0%;
@@ -39,6 +29,17 @@
     top: 100%;
   }
 }
+
+.scanline-2::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 10px;
+  background-color: rgba(152, 251, 152, 0.278);
+  animation: scanline 2.5s linear infinite;
+}
+
+
   /* Add scanline styles if necessary */
 @keyframes scanline {
   0% {
