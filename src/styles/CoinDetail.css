@@ -1,0 +1,37 @@
+/* src/components/CoinDetail.module.css */
+
+.coinDetailContainer {
+    background-color: #1e1e1e;
+    color: var(--pip-boy-green);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px var(--pip-boy-green);
+    max-width: 400px;
+    margin: 20px auto;
+  }
+  
+  .coinDetailContainer h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-family: 'VT323', monospace;
+  }
+  
+  .coinDetailContainer p {
+    font-size: 1rem;
+    padding: 5px 0;
+    color: #ccc;
+  }
+  
+  .error {
+    color: red;
+    font-family: 'VT323', monospace;
+    text-shadow: 0 0 5px red;
+  }
+  
+  .loading {
+    color: var(--pip-boy-green);
+    font-family: 'VT323', monospace;
+    text-shadow: 0 0 5px var(--pip-boy-green);
+    font-size: 1.2rem;
+  }
+  

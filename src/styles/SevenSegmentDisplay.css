@@ -1,26 +1,14 @@
 /* src/components/SevenSegmentDisplay.module.css */
 
-@import url('https://fonts.googleapis.com/css2?family=Digital-7&display=swap');
-
-.display {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 200px; /* Adjust as needed */
-  width: 300px; /* Adjust as needed */
-  background-color: black;
-  color: green;
-  font-family: 'Digital-7', sans-serif;
-  border: 2px solid #00ff00;
-  border-radius: 8px;
-}
-
-.display-h1 {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-}
-
-.display-p {
-  font-size: 1.5rem;
-}
+.sevenSegment {
+    font-family: 'Digital-7', monospace;
+    font-size: 2rem;
+    color: var(--pip-boy-green);
+    text-shadow:
+      0 0 5px var(--pip-boy-green),
+      0 0 10px var(--pip-boy-green),
+      0 0 20px var(--pip-boy-green),
+      0 0 40px var(--pip-boy-green);
+    margin-top: 10px;
+  }
+  

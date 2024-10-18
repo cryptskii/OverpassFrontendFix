@@ -13,7 +13,7 @@ interface PriceFeed {
 const COINGECKO_API_URL = "https://api.coingecko.com/api/v3/simple/price";
 const COIN_IDS = "bitcoin,ethereum,tether,the-open-network"; // Verify if 'toncoin' is needed
 const VS_CURRENCY = "usd";
-const FETCH_INTERVAL = 5000; // 5 seconds
+const FETCH_INTERVAL = 75000;
 
 const getPriceFeeds = async (previousFeeds: PriceFeed[]): Promise<PriceFeed[]> => {
   try {
@@ -26,61 +26,33 @@ const getPriceFeeds = async (previousFeeds: PriceFeed[]): Promise<PriceFeed[]> =
       {
         name: "Bitcoin",
         price: data.bitcoin?.usd ?? 0,
-        change:
-          data.bitcoin?.usd -
-          (previousFeeds.find((f) => f.name === "Bitcoin")?.price ||
-            data.bitcoin?.usd ||
-            0),
-        changePercentage: previousFeeds.find((f) => f.name === "Bitcoin")?.price
-          ? ((data.bitcoin.usd -
-              previousFeeds.find((f) => f.name === "Bitcoin")!.price) /
-              previousFeeds.find((f) => f.name === "Bitcoin")!.price) *
-            100
+        change: data.bitcoin?.usd - (previousFeeds.find(f => f.name === "Bitcoin")?.price || data.bitcoin?.usd || 0),
+        changePercentage: previousFeeds.find(f => f.name === "Bitcoin")?.price
+          ? ((data.bitcoin.usd - previousFeeds.find(f => f.name === "Bitcoin")!.price) / previousFeeds.find(f => f.name === "Bitcoin")!.price) * 100
           : 0,
       },
       {
         name: "Ethereum",
         price: data.ethereum?.usd ?? 0,
-        change:
-          data.ethereum?.usd -
-          (previousFeeds.find((f) => f.name === "Ethereum")?.price ||
-            data.ethereum?.usd ||
-            0),
-        changePercentage: previousFeeds.find((f) => f.name === "Ethereum")?.price
-          ? ((data.ethereum.usd -
-              previousFeeds.find((f) => f.name === "Ethereum")!.price) /
-              previousFeeds.find((f) => f.name === "Ethereum")!.price) *
-            100
+        change: data.ethereum?.usd - (previousFeeds.find(f => f.name === "Ethereum")?.price || data.ethereum?.usd || 0),
+        changePercentage: previousFeeds.find(f => f.name === "Ethereum")?.price
+          ? ((data.ethereum.usd - previousFeeds.find(f => f.name === "Ethereum")!.price) / previousFeeds.find(f => f.name === "Ethereum")!.price) * 100
           : 0,
       },
       {
         name: "USDT",
         price: data.tether?.usd ?? 0,
-        change:
-          data.tether?.usd -
-          (previousFeeds.find((f) => f.name === "USDT")?.price ||
-            data.tether?.usd ||
-            0),
-        changePercentage: previousFeeds.find((f) => f.name === "USDT")?.price
-          ? ((data.tether.usd -
-              previousFeeds.find((f) => f.name === "USDT")!.price) /
-              previousFeeds.find((f) => f.name === "USDT")!.price) *
-            100
+        change: data.tether?.usd - (previousFeeds.find(f => f.name === "USDT")?.price || data.tether?.usd || 0),
+        changePercentage: previousFeeds.find(f => f.name === "USDT")?.price
+          ? ((data.tether.usd - previousFeeds.find(f => f.name === "USDT")!.price) / previousFeeds.find(f => f.name === "USDT")!.price) * 100
           : 0,
       },
       {
         name: "TON",
         price: data["the-open-network"]?.usd ?? 0,
-        change:
-          data["the-open-network"]?.usd -
-          (previousFeeds.find((f) => f.name === "TON")?.price ||
-            data["the-open-network"]?.usd ||
-            0),
-        changePercentage: previousFeeds.find((f) => f.name === "TON")?.price
-          ? ((data["the-open-network"].usd -
-              previousFeeds.find((f) => f.name === "TON")!.price) /
-              previousFeeds.find((f) => f.name === "TON")!.price) *
-            100
+        change: data["the-open-network"]?.usd - (previousFeeds.find(f => f.name === "TON")?.price || data["the-open-network"]?.usd || 0),
+        changePercentage: previousFeeds.find(f => f.name === "TON")?.price
+          ? ((data["the-open-network"].usd - previousFeeds.find(f => f.name === "TON")!.price) / previousFeeds.find(f => f.name === "TON")!.price) * 100
           : 0,
       },
     ];

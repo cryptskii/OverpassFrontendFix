@@ -4,15 +4,15 @@ import React from 'react';
 import '../styles/SevenSegmentDisplay.css';
 
 interface SevenSegmentDisplayProps {
-  value: string; // The value to display
+  value: string;
 }
 
 const SevenSegmentDisplay: React.FC<SevenSegmentDisplayProps> = ({ value }) => {
   return (
-    <div className="display">
-      <h1 className="display-h1">{value}</h1>
-      <p className="display-p">Current Price</p>
+    <div className='sevenSegment'>
+      {value}
     </div>
   );
 };
+
 export default SevenSegmentDisplay;

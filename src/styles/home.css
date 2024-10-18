@@ -1,22 +1,61 @@
-/* src/pages/Home.module.css */
+/* src/styles/Home.module.css */
 
 .home {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 40px 20px;
-  background-color: #121212; /* Dark background for overall theme */
-  color: #fff; /* White text for contrast */
+  background-color: var(--pip-boy-bg);
+  color: var(--pip-boy-text);
   min-height: 100vh;
   box-sizing: border-box;
+  position: relative;
+}
+
+
+.scanline::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 11px;
+  background-color: rgba(44, 168, 44, 0.039);
+  animation: scanline 7.5s linear infinite;
+}
+
+.scanline-2::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(152, 251, 152, 0.029);
+  animation: scanline 2.5s linear infinite;
+}
+
+@keyframes scanline {
+  0% {
+    top: 0%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+  /* Add scanline styles if necessary */
+@keyframes scanline {
+  0% {
+    top: 0%;
+  }
+  100% {
+    top: 100%;
+  }
 }
 
 .title {
   font-size: 2.5rem;
   margin-bottom: 20px;
   text-align: center;
-  color: #00ff00; /* Green color for title */
+  color: var(--pip-boy-green);
   font-family: 'VT323', monospace;
+  text-shadow: 0 0 5px var(--pip-boy-green);
 }
 
 .description {
@@ -47,46 +86,52 @@
   border-radius: 8px;
   width: 250px;
   text-align: center;
-  border: 1px solid #00ff00;
+  border: 1px solid var(--pip-boy-border);
+  box-shadow: 0 0 10px var(--pip-boy-green);
 }
 
 .feature h3 {
-  color: #00ff00;
+  color: var(--pip-boy-green);
   margin-bottom: 10px;
+  text-shadow: 0 0 5px var(--pip-boy-green);
 }
 
 .feature p {
   color: #ccc;
+  font-size: 1rem;
 }
 
 .cta {
   padding: 15px 30px;
   font-size: 1.2rem;
-  background-color: #00ff00;
+  background-color: var(--pip-boy-green);
   color: #000;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-family: 'VT323', monospace;
+  box-shadow: 0 0 10px var(--pip-boy-green);
 }
 
 .cta:hover {
-  background-color: #00cc00;
+  background-color: var(--pip-boy-dark-green);
+  color: var(--pip-boy-bg);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .priceCharts {
-      width: 100%;
-    }
+  .priceCharts {
+    width: 100%;
+  }
 
-    .features {
-      flex-direction: column;
-      align-items: center;
-    }
+  .features {
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .feature {
-      width: 80%;
-      max-width: 400px;
-    }
+  .feature {
+    width: 80%;
+    max-width: 400px;
+  }
 }

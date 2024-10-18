@@ -151,15 +151,15 @@ body {
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0),
-    rgba(255, 255, 255, 0) 50%,
-    rgba(0, 0, 0, 0.2) 50%,
+    rgba(255, 255, 255, 0) 20%,
+    rgba(0, 0, 0, 0.2) 20%,
     rgba(0, 0, 0, 0.2)
   );
-  background-size: 100% 9px;
+  background-size: 100% 6px;
   z-index: 2;
   pointer-events: none;
   opacity: 0.9;
-  animation: scanlines 9s linear infinite;  
+  animation: scanlines 74s linear infinite;  
 }
 .glow-text {
   text-shadow: 0 0 2px var(--pip-boy-green);
@@ -186,7 +186,7 @@ body {
     rgba(0, 0, 0, 0.1) 51%
   );
   background-size: 100% 4px;
-  animation: scanlines 22s linear infinite;
+  animation: scanlines 62s linear infinite;
   pointer-events: none;
 }
 @keyframes scanlines {
@@ -273,13 +273,13 @@ body {
 /* Add a glowing effect to simulate CRT phosphor */
 @keyframes glow {
   0% {
-    text-shadow: 0 0 5px var(--pip-boy-green);
+    text-shadow: 0 0 3px var(--pip-boy-green);
   }
   50% {
-    text-shadow: 0 0 10px var(--pip-boy-green), 0 0 15px var(--pip-boy-green);
+    text-shadow: 0 0 1px var(--pip-boy-green), 0 0 15px var(--pip-boy-green);
   }
   100% {
-    text-shadow: 0 0 5px var(--pip-body-green);
+    text-shadow: 0 0 3px var(--pip-body-green);
   }
 }
 
@@ -301,6 +301,7 @@ body {
 }
 
 .connect-wallet .tc-connect-button:hover {
+  position: relative;
   background-color: var(--pip-boy-dark-green);
   color: var(--pip-boy-green);
 }

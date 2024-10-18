@@ -1,21 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import './styles/globals.css';
-import './styles/PipBoyWalletDashboard.css';
-import TonConnectProvider from './components/TonConnectProvider';
+import { TonConnectUIProvider } from '@tonconnect/ui-react';
 import App from './App';
 
-const rootElement = document.getElementById('root') as HTMLElement;
-
-const root = ReactDOM.createRoot(rootElement);
-
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <TonConnectProvider>
+      <TonConnectUIProvider manifestUrl="https://ovp-eight.vercel.app/tonconnect-manifest.json">
         <App />
-      </TonConnectProvider>
+      </TonConnectUIProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

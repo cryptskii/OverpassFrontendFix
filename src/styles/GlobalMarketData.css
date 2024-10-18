@@ -1,0 +1,41 @@
+/* src/components/GlobalMarketData.module.css */
+
+.globalDataContainer {
+    background-color: #1e1e1e;
+    color: var(--pip-boy-green);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px var(--pip-boy-green);
+    max-width: 600px;
+    margin: 20px auto;
+  }
+  
+  .globalDataContainer h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-family: 'VT323', monospace;
+  }
+  
+  .globalDataContainer ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .globalDataContainer li {
+    padding: 5px 0;
+    font-size: 1rem;
+  }
+  
+  .error {
+    color: red;
+    font-family: 'VT323', monospace;
+    text-shadow: 0 0 5px red;
+  }
+  
+  .loading {
+    color: var(--pip-boy-green);
+    font-family: 'VT323', monospace;
+    text-shadow: 0 0 5px var(--pip-boy-green);
+    font-size: 1.2rem;
+  }
+  
