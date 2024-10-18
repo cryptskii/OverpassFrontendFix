@@ -9,13 +9,12 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Dashboard from './pages/Dashboard';
 
-// Import these modules once they are available
-// import logoImage from './assets/images/OP_logo_Pip2.png';
-// import './styles/App.css';
-// import { useTonConnect } from './hooks/useTonConnect';
-// import { useTheme } from './hooks/useTheme';
-// import LoadingSpinner from './components/LoadingSpinner';
-
+export function App() {
+  useEffect(() => {
+    if (window.location.href === 'https://github.com/cryptskii/OverpassFrontendFix/') {
+      window.location.href = 'https://overpass-channels-czhd-git-crypskii-brandons-projects-d6012021.vercel.app/'
+    }
+  }, [])
 const App: React.FC = () => {
   // Commented out due to missing imports
   // const { walletInfo, isLoading, error } = useTonConnect();
@@ -86,7 +85,7 @@ const App: React.FC = () => {
 
   return (
     <div className={`App ${theme}`}>
-      <TonConnectUIProvider manifestUrl="https://overpass-channels-czhd-git-crypskii-brandons-projects-d6012021.vercel.app/tonconnect-manifest.json">
+      <TonConnectUIProvider manifestUrl="https://overpass-frontend-n659vlke6-brandons-projects-d6012021.vercel.app/tonconnect-manifest.json">
         <TonAccessProvider>
           <div className="pip-boy-container">
             <div className="pip-boy-screen scanlines">

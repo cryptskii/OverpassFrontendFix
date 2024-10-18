@@ -1,5 +1,5 @@
 import { hookstate, useHookstate } from '@hookstate/core'
-import { TonClient } from 'ton'
+import { TonClient } from '@ton/ton'
 import { Api, HttpClient } from 'tonapi-sdk-js'
 
 const TonConnection = hookstate<TonClient>(
