@@ -1,5 +1,3 @@
-// src/components/WalletInfo.tsx
-
 import React from 'react';
 import { useTonWallet, useTonAddress } from '@tonconnect/ui-react';
 
@@ -20,3 +18,5 @@ export const WalletInfo: React.FC = () => {
     )
   );
 };
+
+export default WalletInfo;

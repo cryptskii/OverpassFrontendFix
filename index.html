@@ -2,17 +2,78 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Overpass - Your gateway to managing TON transactions seamlessly." />
+    <meta name="keywords" content="Overpass, TON, Blockchain, Wallet, Transactions" />
+    <meta name="author" content="Overpass Team" />
+
+    <!-- Open Graph Meta Tags for social sharing -->
+    <meta property="og:title" content="Overpass Wallet" />
+    <meta property="og:description" content="Overpass helps you manage TON transactions easily and securely." />
+    <meta property="og:image" content="/logo.png" />
+    <meta property="og:url" content="https://yourwebsite.com" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    
     <title>Overpass</title>
+
+    <!-- Manifest for PWA and TonConnect -->
     <link rel="manifest" href="/tonconnect-manifest.json">
+    
+    <!-- Logo -->
     <link rel="logo" href="/logo.png">
+    
+    <!-- Preconnect to improve loading time for external resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Other global styles if needed -->
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+
+      /* Optionally, add a spinner here to indicate app loading */
+      #loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-size: 2em;
+        color: #3bff82;
+        background-color: #001a0e;
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <!-- Optional loading screen -->
+    <div id="loading">Loading Overpass...</div>
+    
+    <!-- React app will be mounted here -->
+    <div id="root" style="display: none;"></div>
+
+    <!-- React app script -->
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Script to hide the loading spinner once React mounts -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const rootDiv = document.getElementById('root');
+        const loadingDiv = document.getElementById('loading');
+        
+        if (rootDiv) {
+          rootDiv.style.display = 'block';
+        }
+        if (loadingDiv) {
+          loadingDiv.style.display = 'none';
+        }
+      });
+    </script>
   </body>
 </html>

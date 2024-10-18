@@ -3,25 +3,22 @@
 import React, { useEffect, useState } from 'react';
 import { useTonWallet } from '../hooks/useTonWallet';
 import { getHttpEndpoint } from '@orbs-network/ton-access';
-import { TonClient, WalletContractV4, fromNano, Address, beginCell, toNano, MessageRelaxed } from '@ton/ton';
-import { mnemonicToWalletKey } from '@ton/crypto';
+import { TonClient, fromNano, Address } from '@ton/ton';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { WalletInfo } from '../components/WalletInfo'; // Named import
+import WalletInfo from '../components/WalletInfo';
 import SendTransaction from '../components/SendTransaction';
 import TransactionHistory from '../components/TransactionHistory';
 import Balance from '../components/Balance';
+import { TonConnectButton } from '@tonconnect/ui-react';
 import { Transaction } from '../common/types';
 
-interface DashboardProps {
-  transactions: Transaction[];
-  fetchTransactions: () => Promise<void>;
-}
 
-const Dashboard: React.FC<DashboardProps> = ({ transactions, fetchTransactions }) => {
+const Dashboard: React.FC = () => {
   const [client, setClient] = useState<TonClient | null>(null);
-  const [balance, setBalance] = useState<string>('0');
+  const [, setBalance] = useState<string>('0');
   const { address: walletAddress } = useTonWallet();
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
     const initTonAccess = async () => {
@@ -51,55 +48,59 @@ const Dashboard: React.FC<DashboardProps> = ({ transactions, fetchTransactions }
     fetchTokenBalance();
   }, [walletAddress, client]);
 
-  const sendTransaction = async () => {
-    if (!client) return;
+  const fetchTransactions = async () => {
+    if (walletAddress && client) {
+      try {
+        const fetchedTransactions = await client.getTransactions(Address.parse(walletAddress), {
+          limit: 10,
+          lt: '0',
+        });
+        const formattedTransactions: Transaction[] = fetchedTransactions.map((transaction, index) => {
+          const isIncoming = transaction.inMessage?.info.src?.toString() !== walletAddress;
 
-    try {
-      const mnemonics = 'word1 word2 word3 word4 word5 word6 word7 word8 word9 word10 word11 word12'.split(' ');
-      const key = await mnemonicToWalletKey(mnemonics);
-
-      const wallet = WalletContractV4.create({ workchain: 0, publicKey: key.publicKey });
-      const contract = client.open(wallet);
-
-      const seqno = await contract.getSeqno();
-      await contract.sendTransfer({
-        seqno,
-        secretKey: key.secretKey,
-        messages: [
-          {
-            info: {
-              type: 'internal',
-              ihrDisabled: true,
-              bounce: false,
-              bounced: false,
-              src: null,
-              dest: Address.parse('EQCD39VS5jcptHL8vMjEXrzGaRcCVYto7HUn4bpAOg8xqB2N'),
-              value: toNano('1'),
-              ihrFee: BigInt(0),
-              fwdFee: BigInt(0),
-              createdLt: BigInt(0),
-              createdAt: 0,
-              forwardFee: BigInt(0),
-            },
-            body: beginCell().endCell(),
-          } as unknown as MessageRelaxed,
-        ],
-      });
-      console.log('Transaction sent successfully');
-    } catch (error) {
-      console.error('Error sending transaction:', error);
+          return {
+            id: index.toString(),
+            date: new Date(transaction.now * 1000).toISOString(),
+            timestamp: transaction.now * 1000,
+            amount: Number(fromNano(transaction.inMessage?.info.type === 'internal' ? transaction.inMessage.info.value.coins : '0')),
+            sender: transaction.inMessage?.info.src?.toString() || '',
+            recipient: transaction.outMessages[0]?.info.dest?.toString() || '',
+            status: 'completed',
+            // Change 'type' to either 'incoming' or 'outgoing'
+            type: isIncoming ? 'incoming' : 'outgoing',
+          };
+        });
+        setTransactions(formattedTransactions);
+      } catch (error) {
+        console.error('Error fetching transactions:', error);
+      }
     }
   };
 
   return (
-    <div className="Dashboard">
+    <div className="pip-boy-container">
       <Header />
-      <div className="container p-6">
-        <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
-        <WalletInfo />
-        <Balance />
-        <SendTransaction onSend={sendTransaction} />
-        <TransactionHistory />
+      <div className="pip-boy-screen">
+        <main className="pip-boy-content">
+          <div className="mb-4">
+            <TonConnectButton />
+          </div>
+
+          <h1 className="text-3xl font-bold mb-6 pip-boy-header">Dashboard</h1>
+
+          <div className="dashboard-section">
+            {walletAddress ? (
+              <>
+                <WalletInfo />
+                <Balance />
+                <SendTransaction />
+                <TransactionHistory transactions={transactions} fetchTransactions={fetchTransactions} />
+              </>
+            ) : (
+              <p>Please connect your wallet to view your dashboard.</p>
+            )}
+          </div>
+        </main>
       </div>
       <Footer />
     </div>

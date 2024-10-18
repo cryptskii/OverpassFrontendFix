@@ -1,20 +1,15 @@
-// src/components/TransactionHistory.tsx
-
 import React from 'react';
 import { useTonWallet } from '../hooks/useTonWallet';
 import { fetchTransactions } from '../utils/api'; // Ensure this function is correctly implemented
+import { Transaction } from '../common/types'; // Importing the correct Transaction type
 
-interface Transaction {
-  id: string;
-  amount: string;
-  type: 'send' | 'receive';
-  address: string;
-  timestamp: number;
+interface TransactionHistoryProps {
+  transactions: Transaction[]; // Now expects transactions passed as props
+  fetchTransactions: () => Promise<void>; // Function to fetch transactions passed as prop
 }
 
-const TransactionHistory: React.FC = () => {
+const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactions, fetchTransactions }) => {
   const { address } = useTonWallet();
-  const [transactions, setTransactions] = React.useState<Transaction[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
 
@@ -23,8 +18,7 @@ const TransactionHistory: React.FC = () => {
       if (address) {
         try {
           setLoading(true);
-          const txs = await fetchTransactions(address, false); // Assuming mainnet by default
-          setTransactions(txs);
+          await fetchTransactions(); // Fetching transactions through the prop function
           setLoading(false);
         } catch (err) {
           setError('Failed to load transactions. Please try again later.');
@@ -34,7 +28,7 @@ const TransactionHistory: React.FC = () => {
     };
 
     loadTransactions();
-  }, [address]);
+  }, [address, fetchTransactions]);
 
   if (loading) {
     return <p>Loading transaction history...</p>;
@@ -53,8 +47,8 @@ const TransactionHistory: React.FC = () => {
         <ul className="space-y-2">
           {transactions.map((tx) => (
             <li key={tx.id} className="flex justify-between items-center border-b border-gray-600 py-2">
-              <span className={tx.type === 'receive' ? 'text-green-400' : 'text-red-400'}>
-                {tx.type === 'receive' ? '+' : '-'}{tx.amount} TON
+              <span className={tx.type === 'incoming' ? 'text-green-400' : 'text-red-400'}>
+                {tx.type === 'incoming' ? '+' : '-'}{tx.amount} TON
               </span>
               <span className="text-sm text-gray-400">{new Date(tx.timestamp).toLocaleString()}</span>
             </li>

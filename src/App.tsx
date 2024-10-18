@@ -7,16 +7,14 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Dashboard from './pages/Dashboard';
-import LoadingComponent from './components/LoadingComponent'; // Ensure this component exists
+import LoadingComponent from './components/LoadingComponent';
 import { useTonConnectUI } from '@tonconnect/ui-react';
-import { Transaction } from './common/types';
 
 const App: React.FC = () => {
   const navigate = useNavigate();
   const [isInitialized, setIsInitialized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [theme] = useState<'light' | 'dark'>('light');
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   // Access TonConnect's UI instance
   const [tonConnectUI] = useTonConnectUI();
@@ -24,7 +22,6 @@ const App: React.FC = () => {
   useEffect(() => {
     const initializeApp = async () => {
       try {
-        // Simulating an asynchronous initialization process
         await new Promise((resolve) => setTimeout(resolve, 1000));
         setIsInitialized(true);
         setIsLoading(false);
@@ -54,20 +51,6 @@ const App: React.FC = () => {
     }
   };
 
-  const fetchTransactions = async () => {
-    try {
-      // Fetch transactions from the backend API
-      const response = await fetch('/api/transactions');
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data: Transaction[] = await response.json();
-      setTransactions(data);
-    } catch (error) {
-      console.error('Failed to fetch transactions:', error);
-    }
-  };
-
   return (
     <div className={`App ${theme}`}>
       <div className="pip-boy-container">
@@ -77,10 +60,7 @@ const App: React.FC = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
-              <Route
-                path="/dashboard"
-                element={<Dashboard transactions={transactions} fetchTransactions={fetchTransactions} />}
-              />
+              <Route path="/dashboard" element={<Dashboard />} />
             </Routes>
           </main>
           <Footer />
@@ -116,17 +96,4 @@ const App: React.FC = () => {
   );
 };
 
-// OpApp handles redirection logic
-const OpApp: React.FC = () => {
-  useEffect(() => {
-    // Redirect if accessing the GitHub repository URL
-    if (window.location.href === 'https://github.com/cryptskii/OverpassFrontendFix/') {
-      window.location.href =
-        'https://overpass-channels-czhd-git-crypskii-brandons-projects-d6012021.vercel.app/';
-    }
-  }, []);
-
-  return <App />;
-};
-
-export default OpApp;
+export default App;

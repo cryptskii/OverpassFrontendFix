@@ -1,6 +1,7 @@
 // src/types.ts
 
 export interface Transaction {
+    timestamp: string | number | Date;
     id: string;
     amount: number;
     date: string;
