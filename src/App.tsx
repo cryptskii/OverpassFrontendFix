@@ -50,13 +50,18 @@ const App: React.FC = () => {
 
     const favicon = document.querySelector('link[rel="icon"]') as HTMLLinkElement | null;
     if (favicon) {
-      favicon.href = connected ? '/logo.png' : '/logo-not-connected.png';
+      favicon.href = connected ? '/logo.png' : '/logo-not-connected.png'
     }
 
  
-  }, [connected, theme]);  const handleConnect = async () => {
+  }, [connected]);
+
+  const handleConnect = async () => {
     try {
-      await tonConnectUI.openModal()
+      const walletInfo = await tonConnectUI.connectWallet();
+      console.log('Connected wallet:', walletInfo);
+      // Perform any necessary actions after successful connection
+      navigate('/dashboard');
     } catch (error) {
       console.error('Failed to connect wallet:', error);
       // Handle connection error

@@ -2,8 +2,8 @@ import { TonConnectUIProvider } from '@tonconnect/ui-react';
 
 export function App() {
     return (
-        <TonConnectUIProvider manifestUrl="https://<YOUR_APP_URL>/tonconnect-manifest.json">
-            { /* Your app */ }
+        <TonConnectUIProvider manifestUrl="https://overpass-frontend-den9pqd7n-brandons-projects-d6012021.vercel.app/tonconnect-manifest.json">
+            { OverpassFrontendFix.App }
         </TonConnectUIProvider>
     );
 }
@@ -11,7 +11,7 @@ export function App() {
 export const Header = () => {
     return (
       <header>
-        <span>My App with React UI</span>
+        <span>Overpass Frontend Fix</span>
         <TonConnectButton />
       </header>
     );
