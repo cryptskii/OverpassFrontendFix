@@ -1,0 +1,20 @@
+{
+  "name": "sparse-merkle-tree-demo",
+  "version": "1.0.0",
+  "description": "A demo for Sparse Merkle Tree using WebAssembly",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack serve",
+    "build": "webpack --mode production"
+  },
+  "dependencies": {
+    "text-encoding": "^0.7.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1",
+    "html-webpack-plugin": "^5.5.0",
+    "@wasm-tool/wasm-pack-plugin": "^1.6.0"
+  }
+}

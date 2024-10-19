@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparse Merkle Tree Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .input-group {
+            margin-bottom: 10px;
+        }
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+        input[type="text"] {
+            width: 300px;
+        }
+        button {
+            margin-top: 10px;
+        }
+        #output {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sparse Merkle Tree Demo</h1>
+    <div class="input-group">
+        <label for="key">Key:</label>
+        <input type="text" id="key" placeholder="32-byte hex string">
+    </div>
+    <div class="input-group">
+        <label for="value">Value:</label>
+        <input type="text" id="value" placeholder="32-byte hex string">
+    </div>
+    <button id="insert">Insert</button>
+    <button id="get">Get</button>
+    <button id="getRoot">Get Root</button>
+    <button id="generateProof">Generate Proof</button>
+    <button id="verifyProof">Verify Proof</button>
+    <div id="output"></div>
+    <script src="./index.js"></script>
+</body>
+</html>
