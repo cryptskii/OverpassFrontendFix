@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './styles/PipBoyWalletDashboard.css';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { TonConnectButton, useTonConnectUI } from '@tonconnect/ui-react';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -16,7 +16,6 @@ const App: React.FC = () => {
   const [isInitialized, setIsInitialized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [tonConnectUI] = useTonConnectUI();
-
 
   useEffect(() => {
     const initializeApp = async () => {
@@ -41,7 +40,6 @@ const App: React.FC = () => {
       favicon.href = tonConnectUI.connected ? '/logo.png' : '/logo-not-connected.png';
     }
   }, [tonConnectUI.connected]);
-
 
   if (!isInitialized || isLoading) {
     return <LoadScreen showConnectButton isPlaying={false} volume={0} loop={false} URL={'https://cryptskii.github.io/AWESOME.mp3'} />;
