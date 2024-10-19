@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
     <!-- SEO Meta Tags -->
     <meta name="description" content="Overpass - Your gateway to managing TON transactions seamlessly." />
     <meta name="keywords" content="Overpass, TON, Blockchain, Wallet, Transactions" />
@@ -17,21 +16,21 @@
     <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-    
+
     <title>Overpass</title>
 
     <!-- Manifest for PWA and TonConnect -->
-    <link rel="manifest" href="/tonconnect-manifest.json">
+    <link rel="manifest" href="/tonconnect-manifest.json" />
     
     <!-- Logo -->
-    <link rel="logo" href="/logo.png">
+    <link rel="logo" href="/logo.png" />
     
     <!-- Preconnect to improve loading time for external resources -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     
     <!-- Other global styles if needed -->
     <style>
@@ -46,27 +45,32 @@
         align-items: center;
         height: 100vh;
         font-size: 2em;
-        color: #3bff82;
+        color: #10d458;
         background-color: #001a0e;
       }
     </style>
   </head>
   <body>
-    <!-- Optional loading screen -->
-    <div id="loading">Loading Overpass...</div>
-    
-    <!-- React app will be mounted here -->
+    <!-- Loading animation -->
+    <div id="loading">
+      <div class="loader"></div>  
+      <div class="loader-text">Loading Overpass...</div>
+    </div>
+    <!-- React app container -->
     <div id="root" style="display: none;"></div>
-
-    <!-- React app script -->
+    <!-- TonConnect script -->
+    <script src="https://tonconnect.com/tonconnect.js"></script>
+    <!-- Your React app script -->
     <script type="module" src="/src/main.tsx"></script>
+     
+    <!-- Other scripts if needed -->
 
     <!-- Script to hide the loading spinner once React mounts -->
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         const rootDiv = document.getElementById('root');
         const loadingDiv = document.getElementById('loading');
-        
+
         if (rootDiv) {
           rootDiv.style.display = 'block';
         }

@@ -69,7 +69,7 @@ const App: React.FC = () => {
                 ) : tonConnectUI.connected ? (
                   <Navigate to="/dashboard" replace />
                 ) : (
-                  <LoadScreen showConnectButton isPlaying={false} volume={0} loop={false} />
+                  <LoadScreen showConnectButton />
                 )
               } 
             />

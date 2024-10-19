@@ -1,15 +1,34 @@
-// src/components/LoadScreen.tsx
-import React from 'react';
 import { TonConnectButton } from '@tonconnect/ui-react';
+import React, { useEffect } from 'react';
 
 interface LoadScreenProps {
   showConnectButton?: boolean;
-  isPlaying: boolean;
-  volume: number;
-  loop: boolean;
+  isPlaying?: boolean;
+  volume?: number;
+  loop?: boolean;
+  URL?: string;
 }
 
-const LoadScreen: React.FC<LoadScreenProps> = ({ showConnectButton = false }) => {
+const LoadScreen: React.FC<LoadScreenProps> = ({ showConnectButton = false, isPlaying = false, volume = 1, loop = false, URL = '' }) => {
+  useEffect(() => {
+    if (URL) {
+      const audio = new Audio(URL);
+      audio.volume = volume;
+      audio.loop = loop;
+      
+      if (isPlaying) {
+        audio.play().catch(error => {
+          console.error('Failed to play audio:', error);
+        });
+      }
+
+      return () => {
+        audio.pause();
+        audio.currentTime = 0;
+      };
+    }
+  }, [isPlaying, URL, volume, loop]);
+
   return (
     <div className="load-screen">
       <div className="load-screen-content">
@@ -28,7 +47,7 @@ const LoadScreen: React.FC<LoadScreenProps> = ({ showConnectButton = false }) =>
           <div className="loading-container">
             <img src="/assets/loadingOPlogo.GIF" alt="Loading..." className="loading-gif" />
             <p className="loading-text">LOADING...</p>
-          </div>
+          </div>  
         )}
       </div>
     </div>

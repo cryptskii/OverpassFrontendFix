@@ -15,22 +15,31 @@ body {
   margin: 0;
   padding: 0;
 }
-.op-logo {
-  width: 50%;
-  height: 30%;
-  margin-top: 2px;
-}
+
 
 .op-name {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: bottom;
+  align-items: top;
   max-width: 98%;
-  margin-bottom: 1px;
+  margin-bottom: 60px;
 }
 
-
+.ton-connect-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 80px;
+  height: 40px;
+  color: rgba(9, 255, 13, 0.889);
+  background-color: var(--pip-boy-dark-green);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
 
 
 .pip-boy-container {
@@ -60,16 +69,14 @@ body {
   text-shadow: 0 0 10px var(--pip-boy-green);
 }
 
-
-
-
-.text-2xl {
-width: 300px;
-position: relative;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
+.op-logo {
+  width: 50%;
+  height: auto;
+  margin-bottom: 2px;
 }
+
+
+
 
 .pip-boy-button {
   background-color: var(--pip-boy-dark-green);
@@ -122,7 +129,7 @@ transform: translate(-50%, -50%);
   background-size: 100% 6px;
   z-index: 2;
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0.9;
   animation: scanlines 74s linear infinite;  
 }
 .glow-text {
@@ -146,7 +153,7 @@ transform: translate(-50%, -50%);
   bottom: 0;
   background: linear-gradient(
     to bottom,
-    transparent 40%,
+    transparent 50%,
     rgba(0, 0, 0, 0.1) 51%
   );
   background-size: 100% 4px;
@@ -163,7 +170,17 @@ transform: translate(-50%, -50%);
 }
 
 
+.pip-boy-header {
+  font-size: 2.5em;
+  margin: 0;
+  text-shadow: 0 0 5px var(--pip-boy-green);
+}
 
+.pip-boy-nav {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
 
 .pip-boy-nav button {
   background-color: var(--pip-boy-dark-green);
@@ -243,3 +260,18 @@ transform: translate(-50%, -50%);
 
 /* ./src/styles/PipBoyWalletDashboard.css */
 
+.connect-wallet .tc-connect-button {
+  background-color: var(--pip-boy-green);
+  
+  border: 2px solid var(--pip-boy-green);
+  font-family: 'VT323', monospace;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 10px 20px;
+}
+
+.connect-wallet .tc-connect-button:hover {
+  background-color: var(--pip-boy-dark-green);
+
+}

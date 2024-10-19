@@ -1,35 +1,52 @@
-// src/components/LoadScreen.tsx
-import React from 'react';
-import { TonConnectButton } from '@tonconnect/ui-react';
+// AudioPlayer.tsx
+import React, { useEffect, useRef } from 'react';
 
-interface LoadScreenProps {
-  showConnectButton?: boolean;
+interface AudioPlayerProps {
+    src: string;
+  isPlaying?: boolean;
+  volume?: number;
+    loop?: boolean;
+  onEnded?: () => void;
 }
 
-const LoadScreen: React.FC<LoadScreenProps> = ({ showConnectButton = false }) => {
+const AudioPlayer: React.FC<AudioPlayerProps> = ({ isPlaying = true, volume = 1, onEnded }) => {
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+      if (isPlaying) {
+        audioRef.current.play().catch(error => console.error('Audio playback failed:', error));
+      } else {
+        audioRef.current.pause();
+      }
+    }
+  }, [isPlaying, volume]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio && onEnded) {
+      audio.addEventListener('ended', onEnded);
+      return () => {
+        audio.removeEventListener('ended', onEnded);
+      };
+    }
+  }, [onEnded]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.loop = true;
+      audio.play().catch(error => console.error('Audio playback failed:', error));
+    }
+  }, []);
+
   return (
-    <div className="load-screen">
-      <div className="load-screen-content">
-        <div className="scanline"></div>
-        <img
-          src="/assets/9.png"
-          alt="Overpass Logo"
-          className="op-name"
-        />
-        {showConnectButton ? (
-          <div className="connect-wallet-container">
-            <p>Connect your wallet to enter the Wasteland</p>
-            <TonConnectButton />
-          </div>
-        ) : (
-          <div className="loading-container">
-            <img src="/assets/loadingOPlogo.GIF" alt="Loading..." className="loading-gif" />
-            <p className="loading-text">LOADING...</p>
-          </div>
-        )}
-      </div>
-    </div>
+    <audio ref={audioRef}>
+      <source src="https://cryptskii.github.io/AWESOME.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
   );
 };
 
-export default LoadScreen;
+export default AudioPlayer;
